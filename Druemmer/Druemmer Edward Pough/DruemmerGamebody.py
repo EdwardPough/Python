@@ -1,16 +1,24 @@
+from importlib.metadata.diagnose import inspect
 import DruemmerCharacterClass
 import DruemmerGameWindow
+import inspect
+import os
 
-world = DruemmerGameWindow.window("","",None,None,None,None).testraum1()
+
+world = DruemmerGameWindow
 char = DruemmerCharacterClass.character()
+room = world.window()
+
+clear = os.system('cls' if os.name == 'nt' else 'clear')
 
 #Möchte man spielen? Ja/Nein
 
 
 
-#Start des Spieles          <<<<<DONE>>>>>
+#----------------------------------------------Start des Spieles---------------------------------------------
 
 def game_start():
+    clear()
     print("Willkommen bei der Testversion von Druemmer")
     y = 1
     while y == 1:
@@ -107,24 +115,32 @@ def game_start():
         else:
             print("Bitte versuchen sie es nochmal!")
 
-#Spielkörper
+#-----------------------------------------------Spielkörper--------------------------------------------------
 
 def game_play():
     global world
-    global current_raum
+    global currentraum
+    raummethods = [place for place, method in inspect.getmembers(world.window, predicate=inspect.isfunction) 
+               if not place.startswith('_')]
+    currentraum = raummethods[0] #AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     spiel_gewonnen = False
     while spiel_gewonnen == False:
+        clear()
+        room = world.window()
+        raummethods = [place for place, method in inspect.getmembers(world.window, predicate=inspect.isfunction) 
+               if not place.startswith('_')]
+        getattr(room, currentraum)()
         print("---------------------------")
-        print(world.place)
-        print(world.description)
-        if world.north != False:
-            print(">>>North")
-        if world.east != False:
-            print(">>>East")
-        if world.south != False:
-            print(">>>South")
-        if world.west != False:
-            print(">>>West")
+        print(room.place)
+        print(room.description)
+        if room.north != False:
+            print(f">>>North ({room.north.capitalize()})")
+        if room.east != False:
+            print(f">>>East ({room.east.capitalize()})")
+        if room.south != False:
+            print(f">>>South ({room.south.capitalize()})")
+        if room.west != False:
+            print(f">>>West ({room.west.capitalize()})")
         print("---------------------------")
         print("HP:", char.HP)
         print("Mana:", char.Mana)
@@ -135,19 +151,18 @@ def game_play():
         print("---------------------------")
         decision = str(input("Was machen Sie? ")).lower()
         if decision == "north":
-            current_raum = world.north
+            currentraum = room.north
         elif decision == "east":
-            world.east()
+            currentraum = room.east
         elif decision == "south":
-            world.south()
+            currentraum = room.south
         elif decision == "west":
-            world.west()
+            currentraum = room.west
         elif decision == "ende": #TESTING <<>> DELETE LATER / TESTING <<>> DELETE LATER / TESTING <<>> DELETE LATER / 
             spiel_gewonnen = True
         else:
             print("Bitte nochmal")
 
-
+#------------------------------------------------------------------------------------------------------------
 game_start()
-current_raum = world.testraum1() #TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST/TEST
 game_play()
