@@ -1,12 +1,20 @@
-#Druemmer Investigate Class
+#Druemmer Investigate Function
+def investigate():
+    print(investigation.target)
+    print(investigation.tdescription)
+    if investigation.tinteractable == True:
+        pass
 
-
-class investigate():
+#Druemmer Investigation Objects
+class investigation():
     def __init__(self):
         self.target = None
         self.tdescription = None
-        self.target1 = None
-        self.target2 = None
-        self.target3 = None
-        self.target4 = None
-        self.target5 = None
+        self.tinteractable = False
+        self.subtarget1 = None
+        self.subtarget1desc = None
+        self.subtarget2 = None
+        self.subtarget2desc = None
+        self.subtarget3 = None
+        self.subtarget3.desc = None
+        
