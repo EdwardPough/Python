@@ -4,4 +4,6 @@ never finsished due to being part of an IT course and having priorities there.
 
 22.12.2025
 Started to work on it again. Moving between rooms works now and it's modular enough
-so that adding new rooms isn't the most horrible thing to do on earth.
+so that adding new rooms isn't the most horrible thing to do on earth. Also made 
+some small fixes in characterclasses and started the framework for the investigation function.
+The language is still in german so maybe i should change that...
