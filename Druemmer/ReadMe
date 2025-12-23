@@ -7,3 +7,7 @@ Started to work on it again. Moving between rooms works now and it's modular eno
 so that adding new rooms isn't the most horrible thing to do on earth. Also made 
 some small fixes in characterclasses and started the framework for the investigation function.
 The language is still in german so maybe i should change that...
+
+23.12.2025
+Working on investigating things in the room and updated gamebody and gamewindow for it to work. 
+It's not working.
