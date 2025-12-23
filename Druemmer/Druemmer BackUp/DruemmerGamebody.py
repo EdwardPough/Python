@@ -1,10 +1,11 @@
 from importlib.metadata.diagnose import inspect
 import DruemmerCharacterClass
 import DruemmerGameWindow
+import DruemmerInvestigate
 import inspect
 import os
 
-
+inves = DruemmerInvestigate
 world = DruemmerGameWindow
 char = DruemmerCharacterClass.character()
 room = world.window()
@@ -120,8 +121,14 @@ def game_play():
                if not place.startswith("_")]
     currentraum = raummethods[0] #Works now :)
     spiel_gewonnen = False
+    
+    #<<<Gameloop>>>
+    
     while spiel_gewonnen == False:
         os.system("cls" if os.name == "nt" else "clear")
+        
+        #Getting Attributes of the room and printing them
+        
         room = world.window()
         raummethods = [place for place, method in inspect.getmembers(world.window, predicate=inspect.isfunction) 
                if not place.startswith("_")]
@@ -133,6 +140,11 @@ def game_play():
         print("---------------------------")
         print(room.place)
         print(room.description)
+        
+        #<<<Options in Rooms>>>
+        
+        if room.interactable != False:
+            print(f">>>Investigate")
         if room.north != False:
             print(f">>>North ({room.north.capitalize()})")
         if room.east != False:
@@ -142,8 +154,33 @@ def game_play():
         if room.west != False:
             print(f">>>West ({room.west.capitalize()})")
         print("---------------------------")
+        
+        #<<<Decisions that can be made>>>
+        
         decision = str(input("Was machen Sie? ")).lower()
-        if decision == "north":
+        
+        #<<<Investigate>>>
+        
+        if decision == "investigate":
+            if room.interactable != False:
+                if room.object1 != False:
+                    print(room.object1)
+                if room.object2 != False:
+                    print(room.object2)
+                if room.object3 != False:
+                    print(room.object3)
+                x = str(input("Was wollen sie untersuchen? ")).lower().replace(" ", "")
+                if room.object1.lower().replace(" ", "") == x:
+                    inves.investigate(room.object1nr)
+                if room.object2.lower().replace(" ", "") == x:
+                    inves.investigate(room.object2nr)
+                if room.object3.lower().replace(" ", "") == x:
+                    inves.investigate(room.object3nr)
+                
+        
+        #<<<Directions>>>
+        
+        elif decision == "north":
             if room.north != False:
                 currentraum = room.north
         elif decision == "east":
