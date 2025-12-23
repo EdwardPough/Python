@@ -3,11 +3,11 @@ import inspect
 
 #Druemmer Investigate Function
 def investigate(x):
-    invesmethods = [place for place, method in inspect.getmembers(investigation, predicate=inspect.isfunction)     
-        if not place.startswith("_")]
+    invesmethods = [target for target, method in inspect.getmembers(investigation, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
     print(invesmethods)
     currentinves = invesmethods[x]
-    #investigation.currentinves()
+    getattr(investigation(), currentinves)()
     print(investigation.target)
     print(investigation.tdescription)
     if investigation.tinteractable == True:
@@ -24,7 +24,7 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
 
     def kleinerschrank(self):
         self.target = "Kleiner Schrank"
@@ -35,7 +35,7 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
 
     def verkümmertesskelett(self):
         self.target = "Verkümmertes Skelett"
@@ -46,4 +46,4 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
