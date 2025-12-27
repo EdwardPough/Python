@@ -2,15 +2,15 @@ import inspect
 
 
 #Druemmer Investigate Function
-def investigate(x):
-    invesmethods = [place for place, method in inspect.getmembers(investigation, predicate=inspect.isfunction)     
-        if not place.startswith("_")]
-    print(invesmethods)
-    currentinves = invesmethods[x]
-    #investigation.currentinves()
-    print(investigation.target)
-    print(investigation.tdescription)
-    if investigation.tinteractable == True:
+def investigate(z):
+    inves = investigation()
+    invesmethods = [target for target, method in inspect.getmembers(investigation, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
+    currentinves = invesmethods[z]
+    getattr(inves, currentinves)()
+    print(inves.target)
+    print(inves.tdescription)
+    if inves.tinteractable == True:
         pass
 
 #Druemmer Investigation Objects
@@ -24,7 +24,7 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
 
     def kleinerschrank(self):
         self.target = "Kleiner Schrank"
@@ -35,7 +35,7 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
 
     def verkümmertesskelett(self):
         self.target = "Verkümmertes Skelett"
@@ -46,4 +46,15 @@ class investigation():
         self.subtarget2 = None
         self.subtarget2desc = None
         self.subtarget3 = None
-        self.subtarget3.desc = None
+        self.subtarget3desc = None
+
+    def bedecktertisch(self):
+        self.target = "Bedeckter Tisch"
+        self.tdescription = "Ein bedeckter Tisch!"
+        self.tinteractable = False
+        self.subtarget1 = None
+        self.subtarget1desc = None
+        self.subtarget2 = None
+        self.subtarget2desc = None
+        self.subtarget3 = None
+        self.subtarget3desc = None
