@@ -2,15 +2,15 @@ import inspect
 
 
 #Druemmer Investigate Function
-def investigate(x):
+def investigate(z):
+    inves = investigation()
     invesmethods = [target for target, method in inspect.getmembers(investigation, predicate=inspect.isfunction)     
         if not target.startswith("_")]
-    print(invesmethods)
-    currentinves = invesmethods[x]
-    getattr(investigation(), currentinves)()
-    print(investigation.target)
-    print(investigation.tdescription)
-    if investigation.tinteractable == True:
+    currentinves = invesmethods[z]
+    getattr(inves, currentinves)()
+    print(inves.target)
+    print(inves.tdescription)
+    if inves.tinteractable == True:
         pass
 
 #Druemmer Investigation Objects
@@ -40,6 +40,17 @@ class investigation():
     def verkümmertesskelett(self):
         self.target = "Verkümmertes Skelett"
         self.tdescription = "Ein verkümmertes Skelett!"
+        self.tinteractable = False
+        self.subtarget1 = None
+        self.subtarget1desc = None
+        self.subtarget2 = None
+        self.subtarget2desc = None
+        self.subtarget3 = None
+        self.subtarget3desc = None
+
+    def bedecktertisch(self):
+        self.target = "Bedeckter Tisch"
+        self.tdescription = "Ein bedeckter Tisch!"
         self.tinteractable = False
         self.subtarget1 = None
         self.subtarget1desc = None

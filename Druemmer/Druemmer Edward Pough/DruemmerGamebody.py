@@ -1,4 +1,3 @@
-from importlib.metadata.diagnose import inspect
 import DruemmerCharacterClass
 import DruemmerGameWindow
 import DruemmerInvestigate
@@ -162,22 +161,41 @@ def game_play():
         #<<<Investigate>>>
         
         if decision == "investigate":
-            if room.interactable != False:
-                if room.object1 != False:
-                    print(room.object1)
-                if room.object2 != False:
-                    print(room.object2)
-                if room.object3 != False:
-                    print(room.object3)
-                x = str(input("Was wollen sie untersuchen? ")).lower().replace(" ", "")
-                if room.object1.lower().replace(" ", "") == x:
-                    inves.investigate(room.object1nr)
-                if room.object2.lower().replace(" ", "") == x:
-                    inves.investigate(room.object2nr)
-                if room.object3.lower().replace(" ", "") == x:
-                    inves.investigate(room.object3nr)
-                
-        
+            y = 0
+            while y == 0:
+                os.system("cls" if os.name == "nt" else "clear")
+                if room.interactable != False:
+                    if room.object1 != False:
+                        print(room.object1)
+                    if room.object2 != False:
+                        print(room.object2)
+                    if room.object3 != False:
+                        print(room.object3)
+                    print("Zurück?")
+                    x = str(input("Was wollen sie untersuchen? ")).lower().replace(" ", "")
+                    if room.object1 != False:
+                        if room.object1.lower().replace(" ", "") == x:
+                            inves.investigate(room.object1nr)
+                            y == 1
+                            input("Weiter?")
+                    if room.object2 != False:
+                        if room.object2.lower().replace(" ", "") == x:
+                            inves.investigate(room.object2nr)
+                            y == 1
+                            input("Weiter?")
+                    if room.object3 != False:
+                        if room.object3.lower().replace(" ", "") == x:
+                            inves.investigate(room.object3nr)
+                            y == 1
+                            input("Weiter?")
+                    if x == "zurück":
+                        break
+                else:
+                    print("Der Raum ist leer!")
+                    input("Weiter? ")
+                    break
+                        
+            
         #<<<Directions>>>
         
         elif decision == "north":
