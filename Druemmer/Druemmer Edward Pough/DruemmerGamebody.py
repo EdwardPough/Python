@@ -1,6 +1,7 @@
 import DruemmerCharacterClass
 import DruemmerGameWindow
 import DruemmerInvestigate
+import DruemmerCombat
 import inspect
 import os
 
@@ -8,12 +9,14 @@ inves = DruemmerInvestigate
 world = DruemmerGameWindow
 char = DruemmerCharacterClass.character()
 room = world.window()
+combat = DruemmerCombat
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
 
 #----------------------------------------------Start des Spieles---------------------------------------------
 
 def game_start():
+    global kl
     y = 1
     while y == 1:
         os.system("cls" if os.name == "nt" else "clear")
@@ -22,7 +25,7 @@ def game_start():
         klasse = str(input("(Krieger/Ritter/Magier/Kleriker) ")).lower()
         if klasse == "krieger":
             print("Sie spielen einen Krieger!")
-            char.classwarrior()
+            char.aclasswarrior()
             print("Das wären ihre Stats:")
             print("HP:", char.HP)
             print("Mana:", char.Mana)
@@ -31,6 +34,7 @@ def game_start():
             print("Arcana:",char.Arc)
             print("Faith:", char.Fai)
             x = 1
+            kl = 0
             while x == 1:
                 sicher = str(input("Sind Sie sich sicher? ")).lower()
                 if sicher == "ja":
@@ -44,7 +48,7 @@ def game_start():
                     print("Bitte versuchen sie es nochmal!")
         elif klasse == "ritter":
             print("Sie spielen einen Ritter!")
-            char.classknight()
+            char.bclassknight()
             print("Das wären ihre Stats:")
             print("HP:", char.HP)
             print("Mana:", char.Mana)
@@ -53,6 +57,7 @@ def game_start():
             print("Arcana:",char.Arc)
             print("Faith:", char.Fai)
             x = 1
+            kl = 1
             while x == 1:
                 sicher = str(input("Sind Sie sich sicher? ")).lower()
                 if sicher == "ja":
@@ -66,7 +71,7 @@ def game_start():
                     print("Bitte versuchen sie es nochmal!")
         elif klasse == "magier":
             print("Sie spielen einen Magier!")
-            char.classwizard()
+            char.cclasswizard()
             print("Das wären ihre Stats:")
             print("HP:", char.HP)
             print("Mana:", char.Mana)
@@ -75,6 +80,7 @@ def game_start():
             print("Arcana:",char.Arc)
             print("Faith:", char.Fai)
             x = 1
+            kl = 2
             while x == 1:
                 sicher = str(input("Sind Sie sich sicher? ")).lower()
                 if sicher == "ja":
@@ -88,7 +94,7 @@ def game_start():
                     print("Bitte versuchen sie es nochmal!")
         elif klasse == "kleriker":
             print("Sie spielen einen Kleriker!")
-            char.classcleric()
+            char.dclasscleric()
             print("Das wären ihre Stats:")
             print("HP:", char.HP)
             print("Mana:", char.Mana)
@@ -97,6 +103,7 @@ def game_start():
             print("Arcana:",char.Arc)
             print("Faith:", char.Fai)
             x = 1
+            kl = 3
             while x == 1:
                 sicher = str(input("Sind Sie sich sicher? ")).lower()
                 if sicher == "ja":
@@ -116,6 +123,7 @@ def game_start():
 def game_play():
     global world
     global currentraum
+    global kl
     raummethods = [place for place, method in inspect.getmembers(world.window, predicate=inspect.isfunction) 
                if not place.startswith("_")]
     currentraum = raummethods[0] #Works now :)
@@ -132,6 +140,14 @@ def game_play():
         raummethods = [place for place, method in inspect.getmembers(world.window, predicate=inspect.isfunction) 
                if not place.startswith("_")]
         getattr(room, currentraum)()
+        
+        #<<<Initialising Combat if there is>>>
+        if room.combat != False: #Muss noch hinzufügen das falls der Kampf in dem Raum schon abgeschlossen wurde das er nihct repeated wird
+            print(room.description)
+            combat.combat(room.enemyrange_a, room.enemyrange_z, currentraum, kl)
+            os.system("cls" if os.name == "nt" else "clear")
+        
+        #<<<Printing Everything>>>
         print("---------------------------")
         print("Klasse:", char.name)
         print("HP:", char.HP, "/", char.MaxHP)
