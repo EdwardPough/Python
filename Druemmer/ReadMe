@@ -17,6 +17,6 @@ Took a break because christmas. Investigating works now. I still have to impleme
 investigation of objects and start to implement combat. That's probably it for today.
 
 05.01.2026
-Fixed a bug in investigation and created the DruemmerCombat.py file. Combat is around 40ish%
+Fixed a bug in investigation and created the DruemmerCombat.py file. Combat is around 50ish%
 done. Need to create spells/abilites and equipments. If all that is done then I think the demo
 version should be finished.
