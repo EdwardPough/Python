@@ -26,7 +26,7 @@ class investigation():
         self.subtarget3 = None
         self.subtarget3desc = None
 
-    def kleinerschrank(self):
+    def akleinerschrank(self):
         self.target = "Kleiner Schrank"
         self.tdescription = "Ein kleiner Schrank!"
         self.tinteractable = False
@@ -37,7 +37,7 @@ class investigation():
         self.subtarget3 = None
         self.subtarget3desc = None
 
-    def verkümmertesskelett(self):
+    def bverkümmertesskelett(self):
         self.target = "Verkümmertes Skelett"
         self.tdescription = "Ein verkümmertes Skelett!"
         self.tinteractable = False
@@ -48,7 +48,7 @@ class investigation():
         self.subtarget3 = None
         self.subtarget3desc = None
 
-    def bedecktertisch(self):
+    def cbedecktertisch(self):
         self.target = "Bedeckter Tisch"
         self.tdescription = "Ein bedeckter Tisch!"
         self.tinteractable = False

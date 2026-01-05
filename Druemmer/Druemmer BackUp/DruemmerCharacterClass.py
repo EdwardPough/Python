@@ -15,7 +15,7 @@ class character:
         self.Arc = None #Max = 32
         self.Fai = None #Max = 32
 
-    def classwarrior(self): #76 Points
+    def aclasswarrior(self): #76 Points
         self.name = "Krieger"
         self.HP = 19
         self.MaxHP = 19
@@ -26,7 +26,7 @@ class character:
         self.Arc = 7
         self.Fai = 9
 
-    def classknight(self): #76 Points
+    def bclassknight(self): #76 Points
         self.name = "Ritter"
         self.HP = 26
         self.MaxHP = 26
@@ -37,7 +37,7 @@ class character:
         self.Arc = 5
         self.Fai = 12
 
-    def classwizard(self): #76 Points
+    def cclasswizard(self): #76 Points
         self.name = "Magier"
         self.HP = 10
         self.MaxHP = 10
@@ -48,7 +48,7 @@ class character:
         self.Arc = 22
         self.Fai = 10
 
-    def classcleric(self): #76 Points
+    def dclasscleric(self): #76 Points
         self.name = "Kleriker"
         self.HP = 14
         self.MaxHP = 14

@@ -29,9 +29,9 @@ class window():
         self.west = False
         self.combat = False
         self.interactable = True
-        self.object1 = "kleiner schrank" #Nummer 0
+        self.object1 = "Kleiner Schrank" #Nummer 0
         self.object1nr = 0
-        self.object2 = "verkümmertes skelett" #Nummer 1
+        self.object2 = "Verkümmertes Skelett" #Nummer 1
         self.object2nr = 1
         self.object3 = False
         self.object3nr = False
@@ -48,7 +48,7 @@ class window():
         self.west = False
         self.combat = False
         self.interactable = True
-        self.object1 = "bedeckter Tisch" #Nummer 2
+        self.object1 = "Bedeckter Tisch" #Nummer 2
         self.object1nr = 2
         self.object2 = None
         self.object2nr = False
@@ -65,7 +65,8 @@ class window():
         self.south = "testraum4"
         self.west = "testraum2"
         self.combat = True
-        self.enemy = True
+        self.enemyrange_a = 0
+        self.enemyrange_z = 0
         self.interactable = False
         self.object1 = None
         self.object1nr = False
@@ -86,11 +87,12 @@ class window():
         self.east = False
         self.south = False
         self.combat = True
-        self.enemy = True
+        self.enemyrange_a = 1
+        self.enemyrange_z = 2
         self.interactable = True
-        self.object1 = "kleiner schrank" #Nummer 0
+        self.object1 = "Kleiner Schrank" #Nummer 0
         self.object1nr = 0
-        self.object2 = "verkümmertes skelett" #Nummer 1
+        self.object2 = "Verkümmertes Skelett" #Nummer 1
         self.object2nr = 1
-        self.object1 = "bedeckter Tisch" #Nummer 2
+        self.object1 = "Bedeckter Tisch" #Nummer 2
         self.object1nr = 2
