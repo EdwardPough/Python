@@ -46,7 +46,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             print("What will you do?")
             print("1)Attack | 2)Defend | 3)Item(Not Implemented)")
             pdec = input().lower().replace(" ","")
-            if pdec == "attack" or 1:
+            if pdec == "attack":
                 if edec == 0:
                     enemy.hp -= char_kl.Str
                     char_kl.HP -= enemy.damage
@@ -70,9 +70,28 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                         input()
                     else:
                         enemy.hp -= char_kl.Str
-                        print(f"The {enemy.name} is unable to dodge and hit it for {char_kl.Str} damage")
+                        print(f"The {enemy.name} is unable to dodge and you hit it for {char_kl.Str} damage")
                         ent = 1
                         input()
+            elif pdec == "defend":
+                if edec == 0:
+                    char_kl.HP -= enemy.damage - 5 #PROBEWERT
+                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage} damage!")
+                    ent = 1
+                    input()
+                elif edec == 1:
+                    print(f"The {enemy.name} blocked and so did you!")
+                    print("Nothing happens...")
+                    ent = 1
+                    input()
+                elif edec == 2:
+                    print(f"You saw through the trick of {enemy.name}!")
+                    print("You narrowly avoid its counterattack!")
+                    ent = 1
+                    input()
+            else:
+                print("Try again")
+        print("Ihr habt gesiegt!")
 
 #<<<Enemy Class>>>
 class enemies():
@@ -99,6 +118,28 @@ class enemies():
         self.dodgechance = 20 #Chance zum Ausweichen
         self.hitchance = 95 #Chance mit einer Attacke zu Treffen
         self.critchance = 10 #Chance auf einen kritischen Treffer
+    def btwoheadedspider(self):
+        self.name = "Twoheaded Spider"
+        self.hp = 15 #Hit Points des Monsters
+        self.maxhp = 15 #Max Hit Points des Monsters
+        self.mana = 3 #Mana des Monsters
+        self.maxmana = 3 #Max Mana des Monsters
+        self.damage = 7 #Schaden den das Monster verursacht
+        self.defense = 5 #Rüstungswert des Monster der den Schaden reduziert
+        self.dodgechance = 10 #Chance zum Ausweichen
+        self.hitchance = 90 #Chance mit einer Attacke zu Treffen
+        self.critchance = 20 #Chance auf einen kritischen Treffer
+    def cbroodmother(self):
+        self.name = "Broodmother"
+        self.hp = 46 #Hit Points des Monsters
+        self.maxhp = 46 #Max Hit Points des Monsters
+        self.mana = 3 #Mana des Monsters
+        self.maxmana = 3 #Max Mana des Monsters
+        self.damage = 2 #Schaden den das Monster verursacht
+        self.defense = 0 #Rüstungswert des Monster der den Schaden reduziert
+        self.dodgechance = 0 #Chance zum Ausweichen
+        self.hitchance = 85 #Chance mit einer Attacke zu Treffen
+        self.critchance = 0 #Chance auf einen kritischen Treffer
 
 #Testing
-combat(0,0,0,3)
+combat(0,2,0,3)
