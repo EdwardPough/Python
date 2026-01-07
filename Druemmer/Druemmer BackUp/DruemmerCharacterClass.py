@@ -32,8 +32,8 @@ class character:
         self.MaxHP = 26
         self.Mana = 5
         self.MaxMana = 5
-        self.Str = 18
-        self.Dex = 10
+        self.Str = 16
+        self.Dex = 12
         self.Arc = 5
         self.Fai = 12
 
