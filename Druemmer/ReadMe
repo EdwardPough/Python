@@ -23,4 +23,5 @@ version should be finished.
 
 07.01.2026
 Came to the conclusion that I first need to add Equipments to finish combat. Created Items and 
-Equipments File. Started to work on a functioning inventory.
+Equipments File. Started to work on a functioning inventory. A minimalistic version of 
+equipping items exist now.
