@@ -1,15 +1,22 @@
+#<<Imports>>>
+
 import DruemmerCharacterClass
 import DruemmerGameWindow
 import DruemmerInvestigate
 import DruemmerCombat
+import DruemmerItemsEquipments
 import inspect
 import os
+
+#<<<Variablen>>>
 
 inves = DruemmerInvestigate
 world = DruemmerGameWindow
 char = DruemmerCharacterClass.character()
 room = world.window()
 combat = DruemmerCombat
+inv = DruemmerItemsEquipments.inventory
+equip = DruemmerItemsEquipments.equipped
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
 
@@ -23,6 +30,7 @@ def game_start():
         print("Willkommen bei der Testversion von Druemmer")
         print("Welche Klasse wollen sie spielen?")
         klasse = str(input("(Krieger/Ritter/Magier/Kleriker) ")).lower()
+        #---------Krieger---------
         if klasse == "krieger":
             print("Sie spielen einen Krieger!")
             char.aclasswarrior()
@@ -40,12 +48,14 @@ def game_start():
                 if sicher == "ja":
                     print("Viel Spaß!")
                     y = 2
+                    equip.append("Shortsword")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
                     x = 2
                 else:
                     print("Bitte versuchen sie es nochmal!")
+        #---------Ritter---------
         elif klasse == "ritter":
             print("Sie spielen einen Ritter!")
             char.bclassknight()
@@ -69,6 +79,7 @@ def game_start():
                     x = 2
                 else:
                     print("Bitte versuchen sie es nochmal!")
+        #---------Magier---------
         elif klasse == "magier":
             print("Sie spielen einen Magier!")
             char.cclasswizard()
@@ -92,6 +103,7 @@ def game_start():
                     x = 2
                 else:
                     print("Bitte versuchen sie es nochmal!")
+        #---------Kleriker---------
         elif klasse == "kleriker":
             print("Sie spielen einen Kleriker!")
             char.dclasscleric()
@@ -158,6 +170,7 @@ def game_play():
         
         #<<<Options in Rooms>>>
         
+        print(f">>>Inventory")
         if room.interactable != False:
             print(f">>>Investigate")
         if room.north != False:
@@ -174,9 +187,19 @@ def game_play():
         
         decision = str(input("Was machen Sie? ")).lower()
         
+        #<<<Inventory>>>
+
+        if decision == "inventory":
+            os.system("cls" if os.name == "nt" else "clear")
+            print(f"Equipped: {equip}")
+            print(f"Inventory: {inv}")
+            x = input("Equip/Discard/Use/Zurück: ").lower().replace(" ","")
+            if x == "equip":
+                pass
+        
         #<<<Investigate>>>
         
-        if decision == "investigate":
+        elif decision == "investigate":
             y = 0
             while y == 0:
                 os.system("cls" if os.name == "nt" else "clear")

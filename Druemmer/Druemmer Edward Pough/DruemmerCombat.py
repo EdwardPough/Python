@@ -47,19 +47,19 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             print("1)Attack | 2)Defend | 3)Item(Not Implemented)")
             pdec = input().lower().replace(" ","")
             if pdec == "attack":
-                if edec == 0:
+                if edec == 0: #Player = Attack | Enemy = Attack
                     enemy.hp -= char_kl.Str
                     char_kl.HP -= enemy.damage
                     print(f"You attacked and dealt {char_kl.Str} damage!")
                     print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                     ent = 1
                     input()
-                elif edec == 1:
+                elif edec == 1: #Player = Attack | Enemy = Defend
                     enemy.hp -= char_kl.Str - enemy.defense
                     print(f"The {enemy.name} blocked and you only dealt {char_kl.Str-enemy.defense} damage!")
                     ent = 1
                     input()
-                elif edec == 2:
+                elif edec == 2: #Player = Attack | Enemy = Counter
                     chance = random.randint(1,100)
                     dodge = enemy.dodgechance * 2
                     if dodge >= chance:
@@ -73,18 +73,18 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                         print(f"The {enemy.name} is unable to dodge and you hit it for {char_kl.Str} damage")
                         ent = 1
                         input()
-            elif pdec == "defend":
+            elif pdec == "defend": #Player = Defend | Enemy = Attack
                 if edec == 0:
                     char_kl.HP -= enemy.damage - 5 #PROBEWERT
                     print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage} damage!")
                     ent = 1
                     input()
-                elif edec == 1:
+                elif edec == 1: #Player = Defend | Enemy = Defend
                     print(f"The {enemy.name} blocked and so did you!")
                     print("Nothing happens...")
                     ent = 1
                     input()
-                elif edec == 2:
+                elif edec == 2: #Player = Defend | Enemy = Counter
                     print(f"You saw through the trick of {enemy.name}!")
                     print("You narrowly avoid its counterattack!")
                     ent = 1
@@ -92,6 +92,12 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             else:
                 print("Try again")
         print("Ihr habt gesiegt!")
+
+#<<<Enemy Ranges>>>
+#0-4 Spiders | Spiderling - ???
+
+
+
 
 #<<<Enemy Class>>>
 class enemies():
@@ -118,6 +124,7 @@ class enemies():
         self.dodgechance = 20 #Chance zum Ausweichen
         self.hitchance = 95 #Chance mit einer Attacke zu Treffen
         self.critchance = 10 #Chance auf einen kritischen Treffer
+
     def btwoheadedspider(self):
         self.name = "Twoheaded Spider"
         self.hp = 15 #Hit Points des Monsters
@@ -129,6 +136,7 @@ class enemies():
         self.dodgechance = 10 #Chance zum Ausweichen
         self.hitchance = 90 #Chance mit einer Attacke zu Treffen
         self.critchance = 20 #Chance auf einen kritischen Treffer
+
     def cbroodmother(self):
         self.name = "Broodmother"
         self.hp = 46 #Hit Points des Monsters
@@ -142,4 +150,4 @@ class enemies():
         self.critchance = 0 #Chance auf einen kritischen Treffer
 
 #Testing
-combat(0,2,0,3)
+#combat(0,2,0,3)
