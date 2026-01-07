@@ -69,7 +69,7 @@ class equipments():
         self.ability3 = ""
 
     def cmagicwand(self):          #Starter Weapon Wizard | Nummer 2
-        self.name = "Magic Wand"
+        self.name = "MagicWand"
         self.slot = "Side"
         self.strw = "E"
         self.strscl = 2
@@ -84,7 +84,7 @@ class equipments():
         self.ability3 = "ManaRegen"
 
     def dholysymbol(self):          #Starter Weapon Cleric | Nummer 3
-        self.name = "Holy Symbol"
+        self.name = "HolySymbol"
         self.slot = "Side"
         self.strw = "E"
         self.strscl = 2
@@ -108,6 +108,3 @@ class items():
 #<<<---------Everything regarding Inventory--------->>>
 equipped = []
 inventory = []
-
-
-print(equipments().name)

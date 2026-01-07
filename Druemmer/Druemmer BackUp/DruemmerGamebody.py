@@ -48,7 +48,9 @@ def game_start():
                 if sicher == "ja":
                     print("Viel Spaß!")
                     y = 2
-                    equip.append("Shortsword")
+                    equip.insert(0,"Mace")
+                    inv.append("Shortsword")
+                    inv.append("Mace")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
@@ -190,12 +192,24 @@ def game_play():
         #<<<Inventory>>>
 
         if decision == "inventory":
-            os.system("cls" if os.name == "nt" else "clear")
-            print(f"Equipped: {equip}")
-            print(f"Inventory: {inv}")
-            x = input("Equip/Discard/Use/Zurück: ").lower().replace(" ","")
-            if x == "equip":
-                pass
+            while True:
+                os.system("cls" if os.name == "nt" else "clear")
+                print(f"Equipped: {equip}")
+                print(f"Inventory: {inv}")
+                x = input("Equip/Discard/Use/Zurück: ").lower().replace(" ","")
+                if x == "equip":
+                    x = input("Was wollen Sie ausrüsten? ").lower().replace(" ","")
+                    if x.capitalize() in inv:
+                        equip.pop(0)
+                        equip.insert(0, x.capitalize())
+                        print("jo ging")
+                        input()
+                    else:
+                        print("jo ging net")
+                        input()
+                elif x == "zurück":
+                    break
+
         
         #<<<Investigate>>>
         
