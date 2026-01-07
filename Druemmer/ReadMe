@@ -20,3 +20,7 @@ investigation of objects and start to implement combat. That's probably it for t
 Fixed a bug in investigation and created the DruemmerCombat.py file. Combat is around 50ish%
 done. Need to create spells/abilites and equipments. If all that is done then I think the demo
 version should be finished.
+
+07.01.2026
+Came to the conclusion that I first need to add Equipments to finish combat. Created Items and 
+Equipments File. Started to work on a functioning inventory.
