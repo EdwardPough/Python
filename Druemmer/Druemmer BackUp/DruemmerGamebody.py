@@ -17,6 +17,7 @@ room = world.window()
 combat = DruemmerCombat
 inv = DruemmerItemsEquipments.inventory
 equip = DruemmerItemsEquipments.equipped
+realequ = DruemmerItemsEquipments.realequipped
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
 
@@ -49,8 +50,9 @@ def game_start():
                     print("Viel Spaß!")
                     y = 2
                     equip.insert(0,"Mace")
-                    inv.append("Shortsword")
+                    inv.append("Dagger")
                     inv.append("Mace")
+                    DruemmerItemsEquipments.equip_real("Mace")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
@@ -75,6 +77,10 @@ def game_start():
                 if sicher == "ja":
                     print("Viel Spaß!")
                     y = 2
+                    equip.insert(0,"Shortsword")
+                    inv.append("Dagger")
+                    inv.append("Shortsword")
+                    DruemmerItemsEquipments.equip_real("Shortsword")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
@@ -99,6 +105,10 @@ def game_start():
                 if sicher == "ja":
                     print("Viel Spaß!")
                     y = 2
+                    equip.insert(0,"Magicwand")
+                    inv.append("Dagger")
+                    inv.append("Magicwand")
+                    DruemmerItemsEquipments.equip_real("Magicwand")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
@@ -123,6 +133,10 @@ def game_start():
                 if sicher == "ja":
                     print("Viel Spaß!")
                     y = 2
+                    equip.insert(0,"Holysymbol")
+                    inv.append("Dagger")
+                    inv.append("Holysymbol")
+                    DruemmerItemsEquipments.equip_real("Holysymbol")
                     break
                 elif sicher == "nein":
                     print("Bitte wählen Sie eine neue Klasse!")
@@ -196,12 +210,11 @@ def game_play():
                 os.system("cls" if os.name == "nt" else "clear")
                 print(f"Equipped: {equip}")
                 print(f"Inventory: {inv}")
-                x = input("Equip/Discard/Use/Zurück: ").lower().replace(" ","")
+                x = input("Equip/Use/Zurück: ").lower().replace(" ","")
                 if x == "equip":
                     x = input("Was wollen Sie ausrüsten? ").lower().replace(" ","")
                     if x.capitalize() in inv:
-                        equip.pop(0)
-                        equip.insert(0, x.capitalize())
+                        DruemmerItemsEquipments.equip_real(x)
                         print("jo ging")
                         input()
                     else:
