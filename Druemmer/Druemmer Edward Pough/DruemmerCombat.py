@@ -1,12 +1,14 @@
 #Druemmer Combat File
 #<<<Imports>>>
 import random
+import DruemmerItemsEquipments
 import DruemmerCharacterClass
 import DruemmerGameWindow
 import inspect
 import os #os.system("cls" if os.name == "nt" else "clear")
 
 #Variablen
+equips = DruemmerItemsEquipments.equipments
 char = DruemmerCharacterClass
 
 #<<<Combat Function>>>
@@ -18,6 +20,20 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
         if not target.startswith("_")]
     currentclass = classmethods[y]
     getattr(char_kl, currentclass)()
+    #---------Determining Weapon---------
+    waffe = DruemmerItemsEquipments.realequipped[0]
+    weap = DruemmerItemsEquipments.equipments()
+    weapmethods = [target for target, method in inspect.getmembers(equips, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
+    waffeindex = weapmethods.index(waffe)
+    currentweap = weapmethods[waffeindex]
+    getattr(weap, currentweap)()
+    #---------Determining Armor---------
+    # char_kl = DruemmerCharacterClass.character()
+    # classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
+    #     if not target.startswith("_")]
+    # currentclass = classmethods[y]
+    # getattr(char_kl, currentclass)()
     #---------Choosing Enemy---------
     enemy = enemies()
     enemiesmethods = [target for target, method in inspect.getmembers(enemies, predicate=inspect.isfunction)     
@@ -28,6 +44,8 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
     #---------Combat---------
     while enemy.hp > 0:
         os.system("cls" if os.name == "nt" else "clear")
+        if enemy.hp > enemy.maxhp:
+            enemy.hp = enemy.maxhp
         print(enemy.name)
         print(f"{enemy.hp}|{enemy.maxhp}")
         edec = random.randint(0,2)
@@ -44,19 +62,20 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
         ent = 0
         while ent == 0:
             print("What will you do?")
-            print("1)Attack | 2)Defend | 3)Item(Not Implemented)")
+            print("1)Attack | 2)Defend | 3)Ability | 4)Item(Not Implemented)")
             pdec = input().lower().replace(" ","")
-            if pdec == "attack":
+            if pdec == "attack": #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
+                dmg = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
                 if edec == 0: #Player = Attack | Enemy = Attack
-                    enemy.hp -= char_kl.Str
+                    enemy.hp -= dmg
                     char_kl.HP -= enemy.damage
-                    print(f"You attacked and dealt {char_kl.Str} damage!")
+                    print(f"You attacked and dealt {dmg} damage!")
                     print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                     ent = 1
                     input()
                 elif edec == 1: #Player = Attack | Enemy = Defend
-                    enemy.hp -= char_kl.Str - enemy.defense
-                    print(f"The {enemy.name} blocked and you only dealt {char_kl.Str-enemy.defense} damage!")
+                    enemy.hp -= dmg - enemy.defense
+                    print(f"The {enemy.name} blocked and you only dealt {int(dmg-enemy.defense)} damage!")
                     ent = 1
                     input()
                 elif edec == 2: #Player = Attack | Enemy = Counter
@@ -69,14 +88,14 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                         ent = 1
                         input()
                     else:
-                        enemy.hp -= char_kl.Str
-                        print(f"The {enemy.name} is unable to dodge and you hit it for {char_kl.Str} damage")
+                        enemy.hp -= dmg
+                        print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
                         ent = 1
                         input()
             elif pdec == "defend": #Player = Defend | Enemy = Attack
                 if edec == 0:
                     char_kl.HP -= enemy.damage - 5 #PROBEWERT
-                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage} damage!")
+                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage - 5} damage!")
                     ent = 1
                     input()
                 elif edec == 1: #Player = Defend | Enemy = Defend
