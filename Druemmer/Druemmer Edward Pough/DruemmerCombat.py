@@ -13,7 +13,7 @@ char = DruemmerCharacterClass
 
 #<<<Combat Function>>>
     #Klassen Krieger = 0 | Ritter = 1 | Magier = 2 | Kleriker = 3
-def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = Gegner | y = Klasse | z = Equipment(Not Implemented Yet) >>>
+def combat(a,b,w,y, hp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = Gegner | y = Klasse | hp = Current Hitpoints >>>
     #---------Determining Character Class---------
     char_kl = DruemmerCharacterClass.character()
     classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
@@ -52,12 +52,14 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
     currentenemy = enemiesmethods[enemyrange]
     getattr(enemy, currentenemy)()
     #---------Combat---------
-    while (enemy.hp > 0 and char_kl.hp > 0) == True:
+    while (enemy.hp > 0 and hp > 0) == True:
         os.system("cls" if os.name == "nt" else "clear")
         if enemy.hp > enemy.maxhp:
             enemy.hp = enemy.maxhp
+        if hp > char_kl.MaxHP:
+            hp = char_kl.MaxHP
         print(enemy.name)
-        print(f"{enemy.hp}|{enemy.maxhp}")
+        print(f"{round(enemy.hp,2)}|{enemy.maxhp}")
         edec = random.randint(0,2)
         if edec == 0: #Attacking
             print(f"The {enemy.name} intends on attacking!")
@@ -67,7 +69,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             print(f"The {enemy.name} is awaiting an attack!")
         print("------------------")
         print(char_kl.name)
-        print(f"HP: {char_kl.hp}|{char_kl.MaxHP}")
+        print(f"HP: {hp}|{char_kl.MaxHP}")
         print(f"Mana: {char_kl.Mana}|{char_kl.MaxMana}")
         ent = 0
         while ent == 0:
@@ -80,7 +82,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                 dmg = round(dmgmain + dmgside/2,2)
                 if edec == 0: #Player = Attack | Enemy = Attack
                     enemy.hp -= dmg
-                    char_kl.hp -= enemy.damage
+                    hp -= enemy.damage
                     print(f"You attacked and dealt {dmg} damage!")
                     print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                     ent = 1
@@ -94,7 +96,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                     chance = random.randint(1,100)
                     dodge = enemy.dodgechance * 2
                     if dodge >= chance:
-                        char_kl.hp -= enemy.damage
+                        hp -= enemy.damage
                         print(f"The {enemy.name} dodged your attack and retaliates!")
                         print(f"You take {enemy.damage} damage!")
                         ent = 1
@@ -106,8 +108,11 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                         input()
             elif pdec == "defend": #Player = Defend | Enemy = Attack
                 if edec == 0:
-                    char_kl.hp -= enemy.damage - arm.basedef
-                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage - arm.basedef} damage!")
+                    dmgenm = enemy.damage - arm.basedef
+                    if dmgenm < 0:
+                        dmgenm = 0
+                    hp -= dmgenm
+                    print(f"You blocked the attack of the {enemy.name} and only took {dmgenm} damage!")
                     ent = 1
                     input()
                 elif edec == 1: #Player = Defend | Enemy = Defend
@@ -122,14 +127,16 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                     input()
             else:
                 print("Try again")
+        if enemy.hp < 0:
+            enemy.hp = 0
+        if hp < 0:
+            hp = 0
         if enemy.hp == 0:
             print("Ihr habt gesiegt!")
             input()
-            returnedhp = char_kl.hp
-            return returnedhp
-        elif char_kl.hp == 0:
-            returnedhp = char_kl.hp
-            return returnedhp
+            return hp
+        elif hp == 0:
+            return hp
         else:
             pass
 

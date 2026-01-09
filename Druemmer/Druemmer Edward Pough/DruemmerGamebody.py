@@ -18,6 +18,7 @@ combat = DruemmerCombat
 inv = DruemmerItemsEquipments.inventory
 equip = DruemmerItemsEquipments.equipped
 realequ = DruemmerItemsEquipments.realequipped
+completedrooms = []
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
 
@@ -170,7 +171,7 @@ def game_play():
     
     #<<<Gameloop>>>
     
-    while (spiel_gewonnen == False or char.hp <= 0) == True:
+    while spiel_gewonnen == False and char.hp > 0:
         os.system("cls" if os.name == "nt" else "clear")
         
         #Getting Attributes of the room and printing them
@@ -181,11 +182,18 @@ def game_play():
         getattr(room, currentraum)()
 
         #<<<Initialising Combat if there is>>>
-        if room.combat != False: #Muss noch hinzufügen das falls der Kampf in dem Raum schon abgeschlossen wurde das er nihct repeated wird
-            print(room.description)
-            combat.combat(room.enemyrange_a, room.enemyrange_z, currentraum, kl)
-            char.hp = DruemmerCombat.c
-            os.system("cls" if os.name == "nt" else "clear")
+        if (room.place in completedrooms) == False:
+            if room.combat != False:
+                print(room.description)
+                char.hp = combat.combat(room.enemyrange_a, room.enemyrange_z, currentraum, kl, char.hp)
+                completedrooms.append(room.place)
+                os.system("cls" if os.name == "nt" else "clear")
+                if char.hp == 0:
+                    break
+            else:
+                pass
+        else:
+            pass
         
         #<<<Printing Everything>>>
         print("---------------------------")
