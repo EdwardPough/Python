@@ -86,6 +86,7 @@ class window():
         self.north = "testraum3"
         self.east = False
         self.south = False
+        self.west = "testraum1"
         self.combat = True
         self.enemyrange_a = 1
         self.enemyrange_z = 2
