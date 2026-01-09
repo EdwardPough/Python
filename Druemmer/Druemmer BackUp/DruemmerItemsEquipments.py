@@ -36,7 +36,7 @@ class equipments():
         self.faiw = ""
         self.faiscl = 0
         self.ability1 = ""
-        self.abiltiy2 = ""
+        self.ability2 = ""
         self.ability3 = ""
 
     def amace(self):                #Starter Weapon Warrior | Nummer 0
@@ -52,8 +52,9 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Overhead Smash"
-        self.abiltiy2 = "Upper Cut"
+        self.ability2 = "Upper Cut"
         self.ability3 = ""
+        self.type = "weap"
 
     def bshortsword(self):          #Starter Weapon Knight | Nummer 1
         self.name = "Shortsword"
@@ -68,12 +69,13 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Lunge"
-        self.abiltiy2 = ""
+        self.ability2 = ""
         self.ability3 = ""
+        self.type = "weap"
 
     def cmagicwand(self):          #Starter Weapon Wizard | Nummer 2
         self.name = "MagicWand"
-        self.slot = 1 #Side
+        self.slot = 0 #Main
         self.base = 2
         self.strw = "E"
         self.strscl = 2
@@ -84,12 +86,13 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Missile"
-        self.abiltiy2 = "Dagger"
+        self.ability2 = "Dagger"
         self.ability3 = "ManaRegen"
+        self.type = "weap"
 
     def dholysymbol(self):          #Starter Weapon Cleric | Nummer 3
         self.name = "HolySymbol"
-        self.slot = 1 #Main
+        self.slot = 0 #Main
         self.base = 2
         self.strw = "E"
         self.strscl = 2
@@ -100,12 +103,13 @@ class equipments():
         self.faiw = "B"
         self.faiscl = 8
         self.ability1 = "Heal"
-        self.abiltiy2 = "Lightflash"
+        self.ability2 = "Lightflash"
         self.ability3 = "LowerManaRegen"
+        self.type = "weap"
 
     def edagger(self):          #Starter Weapon Everyone
         self.name = "Dagger"
-        self.slot = 0 #Main
+        self.slot = 1 #Side
         self.base = 2
         self.strw = "B"
         self.strscl = 8
@@ -116,25 +120,28 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Lunge"
-        self.abiltiy2 = ""
+        self.ability2 = ""
         self.ability3 = ""
+        self.type = "weap"
 
     def fhalfplate(self):          #Starter Armor Knight | Nummer 1
         self.name = "Halfplatearmor"
         self.slot = 2 #Armor
         self.basedef = 7
+        self.type = "arm"
 
     def gchainmail(self):          #Starter Armor Warrior | Nummer 1
         self.name = "chainmail"
         self.slot = 2 #Armor
         self.basedef = 5
+        self.type = "arm"
 
     def hleatherarmor(self):          #Starter Armor Wizard/Cleric | Nummer 1
         self.name = "leatherarmor"
         self.slot = 2 #Armor
         self.basedef = 3
+        self.type = "arm"
         
-
 #<<<Items>>>
 class items():
     def __init__(self):
@@ -144,7 +151,7 @@ class items():
 
 #<<<---------Everything regarding Inventory--------->>>
 equipped = []
-realequipped = [2]
+realequipped = []
 inventory = []
 
 def equip_real(x): # X = fake equipment
@@ -166,8 +173,8 @@ def equip_real(x): # X = fake equipment
     newequip = equipmethods[c]
     getattr(equ, newequip)()
     newslot = equ.slot
-    equipped.pop(0)
-    equipped.insert(0, x.capitalize())
+    equipped.pop(newslot)
+    equipped.insert(newslot, x.capitalize())
     # for i in range(len(equipmethods)):
     #     cequ = equipments()
     #     curequip = equipmethods[i]
@@ -176,4 +183,34 @@ def equip_real(x): # X = fake equipment
     #     if oldslot == newslot:
     #         realequipped.pop(oldslot)
     #         realequipped.insert(newslot, newequip)
+    realequipped.pop(newslot)
     realequipped.insert(newslot, newequip)
+
+def info(x): # X = fake equipment
+    equ = equipments()
+    equipmethods = [target for target, method in inspect.getmembers(equipments, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
+    a = None
+    for i in range(len(equipmethods)):
+        a = str(equipmethods[i])
+        strlist = list(a)
+        strlist.pop(0)
+        test = "".join(strlist).lower().replace(" ","")
+        if test == x:
+            a = str(equipmethods[i])
+            break
+        else:
+            pass
+    c = equipmethods.index(a)
+    newequip = equipmethods[c]
+    getattr(equ, newequip)()
+    if equ.type == "weap":
+        print(f"Name: {equ.name}")
+        print(f"Strength: {equ.strw}")
+        print(f"Dexterity: {equ.dexw}")
+        print(f"Arcane: {equ.arcw}")
+        print(f"Faith: {equ.faiw}")
+        print(f"Abilities: {equ.ability1},{equ.ability2},{equ.ability3}")
+    else:
+        print(f"Name: {equ.name}")
+        print(f"Defense: {equ.basedef}")

@@ -6,7 +6,7 @@ class character:
     def __init__(self):
         #Main Stats
         self.name = None
-        self.HP = None #Max = 32
+        self.hp = None #Max = 32
         self.MaxHP = None #Max = 32
         self.Mana = None #Max = 32
         self.MaxMana = None #Max = 32
@@ -17,7 +17,7 @@ class character:
 
     def aclasswarrior(self): #76 Points
         self.name = "Krieger"
-        self.HP = 19
+        self.hp = 19
         self.MaxHP = 19
         self.Mana = 5
         self.MaxMana = 5
@@ -28,7 +28,7 @@ class character:
 
     def bclassknight(self): #76 Points
         self.name = "Ritter"
-        self.HP = 26
+        self.hp = 26
         self.MaxHP = 26
         self.Mana = 5
         self.MaxMana = 5
@@ -39,7 +39,7 @@ class character:
 
     def cclasswizard(self): #76 Points
         self.name = "Magier"
-        self.HP = 10
+        self.hp = 10
         self.MaxHP = 10
         self.Mana = 22
         self.MaxMana = 22
@@ -50,7 +50,7 @@ class character:
 
     def dclasscleric(self): #76 Points
         self.name = "Kleriker"
-        self.HP = 14
+        self.hp = 14
         self.MaxHP = 14
         self.Mana = 17
         self.MaxMana = 17
