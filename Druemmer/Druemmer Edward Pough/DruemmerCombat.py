@@ -28,12 +28,22 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
     waffeindex = weapmethods.index(waffe)
     currentweap = weapmethods[waffeindex]
     getattr(weap, currentweap)()
+    #---------Determining Sidearm---------
+    sidearm = DruemmerItemsEquipments.realequipped[1]
+    side = DruemmerItemsEquipments.equipments()
+    sidemethods = [target for target, method in inspect.getmembers(equips, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
+    sideindex = sidemethods.index(sidearm)
+    currentside = sidemethods[sideindex]
+    getattr(side, currentside)()
     #---------Determining Armor---------
-    # char_kl = DruemmerCharacterClass.character()
-    # classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
-    #     if not target.startswith("_")]
-    # currentclass = classmethods[y]
-    # getattr(char_kl, currentclass)()
+    armor = DruemmerItemsEquipments.realequipped[2]
+    arm = DruemmerItemsEquipments.equipments()
+    armmethods = [target for target, method in inspect.getmembers(equips, predicate=inspect.isfunction)     
+        if not target.startswith("_")]
+    armindex = armmethods.index(armor)
+    currentarm = armmethods[armindex]
+    getattr(arm, currentarm)()
     #---------Choosing Enemy---------
     enemy = enemies()
     enemiesmethods = [target for target, method in inspect.getmembers(enemies, predicate=inspect.isfunction)     
@@ -42,7 +52,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
     currentenemy = enemiesmethods[enemyrange]
     getattr(enemy, currentenemy)()
     #---------Combat---------
-    while enemy.hp > 0:
+    while (enemy.hp > 0 and char_kl.hp > 0) == True:
         os.system("cls" if os.name == "nt" else "clear")
         if enemy.hp > enemy.maxhp:
             enemy.hp = enemy.maxhp
@@ -57,7 +67,7 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             print(f"The {enemy.name} is awaiting an attack!")
         print("------------------")
         print(char_kl.name)
-        print(f"HP: {char_kl.HP}|{char_kl.MaxHP}")
+        print(f"HP: {char_kl.hp}|{char_kl.MaxHP}")
         print(f"Mana: {char_kl.Mana}|{char_kl.MaxMana}")
         ent = 0
         while ent == 0:
@@ -65,24 +75,26 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
             print("1)Attack | 2)Defend | 3)Ability | 4)Item(Not Implemented)")
             pdec = input().lower().replace(" ","")
             if pdec == "attack": #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
-                dmg = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
+                dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
+                dmgside = round(side.base + (side.base*(((char_kl.Str * side.strscl)/3)/100)) + (side.base*(((char_kl.Dex * side.dexscl)/3)/100)) + (side.base*(((char_kl.Arc * side.arcscl)/3)/100)) + (side.base*(((char_kl.Fai * side.faiscl)/3)/100)),2)
+                dmg = round(dmgmain + dmgside/2,2)
                 if edec == 0: #Player = Attack | Enemy = Attack
                     enemy.hp -= dmg
-                    char_kl.HP -= enemy.damage
+                    char_kl.hp -= enemy.damage
                     print(f"You attacked and dealt {dmg} damage!")
                     print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                     ent = 1
                     input()
                 elif edec == 1: #Player = Attack | Enemy = Defend
                     enemy.hp -= dmg - enemy.defense
-                    print(f"The {enemy.name} blocked and you only dealt {int(dmg-enemy.defense)} damage!")
+                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
                     ent = 1
                     input()
                 elif edec == 2: #Player = Attack | Enemy = Counter
                     chance = random.randint(1,100)
                     dodge = enemy.dodgechance * 2
                     if dodge >= chance:
-                        char_kl.HP -= enemy.damage
+                        char_kl.hp -= enemy.damage
                         print(f"The {enemy.name} dodged your attack and retaliates!")
                         print(f"You take {enemy.damage} damage!")
                         ent = 1
@@ -94,8 +106,8 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                         input()
             elif pdec == "defend": #Player = Defend | Enemy = Attack
                 if edec == 0:
-                    char_kl.HP -= enemy.damage - 5 #PROBEWERT
-                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage - 5} damage!")
+                    char_kl.hp -= enemy.damage - arm.basedef
+                    print(f"You blocked the attack of the {enemy.name} and only took {enemy.damage - arm.basedef} damage!")
                     ent = 1
                     input()
                 elif edec == 1: #Player = Defend | Enemy = Defend
@@ -110,7 +122,16 @@ def combat(a,b,w,y): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = G
                     input()
             else:
                 print("Try again")
-        print("Ihr habt gesiegt!")
+        if enemy.hp == 0:
+            print("Ihr habt gesiegt!")
+            input()
+            returnedhp = char_kl.hp
+            return returnedhp
+        elif char_kl.hp == 0:
+            returnedhp = char_kl.hp
+            return returnedhp
+        else:
+            pass
 
 #<<<Enemy Ranges>>>
 #0-4 Spiders | Spiderling - ???
