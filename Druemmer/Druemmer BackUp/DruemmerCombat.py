@@ -13,7 +13,7 @@ char = DruemmerCharacterClass
 
 #<<<Combat Function>>>
     #Klassen Krieger = 0 | Ritter = 1 | Magier = 2 | Kleriker = 3
-def combat(a,b,w,y, hp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = Gegner | y = Klasse | hp = Current Hitpoints >>>
+def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x = Gegner | y = Klasse | hp = Current Hitpoints | mp = Current Manapoints >>>
     #---------Determining Character Class---------
     char_kl = DruemmerCharacterClass.character()
     classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
@@ -58,75 +58,124 @@ def combat(a,b,w,y, hp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
             enemy.hp = enemy.maxhp
         if hp > char_kl.MaxHP:
             hp = char_kl.MaxHP
+        hitchance = random.randint(1,100) #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
+        critchance = random.randint(1,100)
+        if hitchance <= weap.hit:
+            dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
+            dmgside = round(side.base + (side.base*(((char_kl.Str * side.strscl)/3)/100)) + (side.base*(((char_kl.Dex * side.dexscl)/3)/100)) + (side.base*(((char_kl.Arc * side.arcscl)/3)/100)) + (side.base*(((char_kl.Fai * side.faiscl)/3)/100)),2)
+            dmg = round(dmgmain + dmgside/2,2)
+            if critchance <= weap.crit:
+                dmg *= 2
         print(enemy.name)
         print(f"{round(enemy.hp,2)}|{enemy.maxhp}")
-        edec = random.randint(0,2)
-        if edec == 0: #Attacking
+        edec = random.randint(1,3)
+        if edec == 1: #Attacking
             print(f"The {enemy.name} intends on attacking!")
-        elif edec == 1: #Defending
+        elif edec == 2: #Defending
             print(f"The {enemy.name} intends on blocking!")
-        elif edec == 2: #Dodging and Countering
+        elif edec == 3: #Dodging and Countering
             print(f"The {enemy.name} is awaiting an attack!")
         print("------------------")
         print(char_kl.name)
         print(f"HP: {hp}|{char_kl.MaxHP}")
         print(f"Mana: {char_kl.Mana}|{char_kl.MaxMana}")
-        ent = 0
-        while ent == 0:
+        ent1 = 0
+        while ent1 == 0:
             print("What will you do?")
             print("1)Attack | 2)Defend | 3)Ability | 4)Item(Not Implemented)")
             pdec = input().lower().replace(" ","")
-            if pdec == "attack": #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
-                dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
-                dmgside = round(side.base + (side.base*(((char_kl.Str * side.strscl)/3)/100)) + (side.base*(((char_kl.Dex * side.dexscl)/3)/100)) + (side.base*(((char_kl.Arc * side.arcscl)/3)/100)) + (side.base*(((char_kl.Fai * side.faiscl)/3)/100)),2)
-                dmg = round(dmgmain + dmgside/2,2)
-                if edec == 0: #Player = Attack | Enemy = Attack
-                    enemy.hp -= dmg
+            if pdec == "attack":
+                pent = 1
+                ent1 = 1
+            elif pdec == "defend":
+                pent = 2
+                ent1 = 1
+            elif pdec == "ability":
+                pent = 3
+                ent1 = 1
+            else:
+                print("Try again")
+            situation = pent + 5*(edec)
+            match situation:
+                #<<< Player Attacking>>>
+                #Player = Attack 1 + Enemy = Attack 5 = 6
+                case 6:
                     hp -= enemy.damage
-                    print(f"You attacked and dealt {dmg} damage!")
-                    print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
-                    ent = 1
-                    input()
-                elif edec == 1: #Player = Attack | Enemy = Defend
-                    enemy.hp -= dmg - enemy.defense
-                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
-                    ent = 1
-                    input()
-                elif edec == 2: #Player = Attack | Enemy = Counter
-                    chance = random.randint(1,100)
-                    dodge = enemy.dodgechance * 2
-                    if dodge >= chance:
+                    if hitchance <= weap.hit:
+                        enemy.hp -= dmg
+                        if critchance <= weap.crit:
+                            print("You critically hit the enemy!")
+                        print(f"You attacked and dealt {dmg} damage!")
+                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                        input()
+                    else:
+                        print("You missed!")
+                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                        input()
+                #Player = Attack 1 + Enemy = Defend 10 = 11
+                case 11:
+                    if hitchance <= weap.hit:
+                        enemy.hp -= dmg - enemy.defense
+                        if critchance <= weap.crit:
+                            print("You critically hit the enemy!")
+                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                        input()
+                    else:
+                        print("You missed!")
+                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                        input()
+                #Player = Attack 1 + Enemy = Counter 15 = 16
+                case 16:
+                    if hitchance <= weap.hit:
+                        chance = random.randint(1,100)
+                        dodge = enemy.dodgechance * 2
+                        if dodge >= chance:
+                            hp -= enemy.damage
+                            print(f"The {enemy.name} dodged your attack and retaliates!")
+                            print(f"You take {enemy.damage} damage!")
+                            input()
+                        else:
+                            enemy.hp -= dmg
+                            if critchance <= weap.crit:
+                                print("You critically hit the enemy!")
+                            print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
+                            input()
+                    else:
+                        print("You missed!")
                         hp -= enemy.damage
                         print(f"The {enemy.name} dodged your attack and retaliates!")
                         print(f"You take {enemy.damage} damage!")
-                        ent = 1
                         input()
-                    else:
-                        enemy.hp -= dmg
-                        print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
-                        ent = 1
-                        input()
-            elif pdec == "defend": #Player = Defend | Enemy = Attack
-                if edec == 0:
+                #<<< Player Defending>>>
+                #Player = Defend 2 + Enemy = Attack 5 = 7
+                case 7:
                     dmgenm = enemy.damage - arm.basedef
                     if dmgenm < 0:
                         dmgenm = 0
                     hp -= dmgenm
                     print(f"You blocked the attack of the {enemy.name} and only took {dmgenm} damage!")
-                    ent = 1
                     input()
-                elif edec == 1: #Player = Defend | Enemy = Defend
+                #Player = Defend 2 + Enemy = Defend 10 = 12
+                case 12:
                     print(f"The {enemy.name} blocked and so did you!")
                     print("Nothing happens...")
-                    ent = 1
                     input()
-                elif edec == 2: #Player = Defend | Enemy = Counter
+                #Player = Defend 2 + Enemy = Counter 15 = 17
+                case 17:
                     print(f"You saw through the trick of {enemy.name}!")
                     print("You narrowly avoid its counterattack!")
-                    ent = 1
                     input()
-            else:
-                print("Try again")
+                #<<< Player Using Ability>>>
+                #Player = Ability 3 + Enemy = Attack 5 = 8
+                case 8:
+                    pass
+                #Player = Ability 3 + Enemy = Defend 10 = 13
+                case 13:
+                    pass
+                #Player = Ability 3 + Enemy = Counter 15 = 18
+                case 18:
+                    pass
+
         if enemy.hp < 0:
             enemy.hp = 0
         if hp < 0:
@@ -134,16 +183,17 @@ def combat(a,b,w,y, hp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
         if enemy.hp == 0:
             print("Ihr habt gesiegt!")
             input()
-            return hp
+            return hp, mp
         elif hp == 0:
-            return hp
+            return hp, mp
         else:
             pass
 
 #<<<Enemy Ranges>>>
 #0-4 Spiders | Spiderling - ???
-
-
+#5-?
+#?-?
+#?-?
 
 
 #<<<Enemy Class>>>
@@ -196,5 +246,12 @@ class enemies():
         self.hitchance = 85 #Chance mit einer Attacke zu Treffen
         self.critchance = 0 #Chance auf einen kritischen Treffer
 
+#<<<Abilities Class>>>
+class abilities():
+    def __init__(self):
+        self.name = ""
+        self.mpcost = 0
+
+        
 #Testing
 #combat(0,2,0,3)

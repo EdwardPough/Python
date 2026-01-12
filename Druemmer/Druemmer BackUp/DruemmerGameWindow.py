@@ -1,6 +1,6 @@
 #Importing Investigate and UseObject
 
-#import DruemmerInvestigate >>>muss ich???<<<
+
 
 #Druemmer Game Window Class
 
