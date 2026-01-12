@@ -184,8 +184,7 @@ def game_play():
         #<<<Initialising Combat if there is>>>
         if (room.place in completedrooms) == False:
             if room.combat != False:
-                print(room.description)
-                char.hp = combat.combat(room.enemyrange_a, room.enemyrange_z, currentraum, kl, char.hp)
+                char.hp, char.Mana = combat.combat(room.enemyrange_a, room.enemyrange_z, kl, char.hp, char.Mana)
                 completedrooms.append(room.place)
                 os.system("cls" if os.name == "nt" else "clear")
                 if char.hp == 0:
@@ -270,17 +269,17 @@ def game_play():
                     x = str(input("Was wollen sie untersuchen? ")).lower().replace(" ", "")
                     if room.object1 != False:
                         if room.object1.lower().replace(" ", "") == x:
-                            inves.investigate(room.object1nr)
+                            inves.investigate(room.object1nr, currentraum)
                             y == 1
                             input("Weiter?")
                     if room.object2 != False:
                         if room.object2.lower().replace(" ", "") == x:
-                            inves.investigate(room.object2nr)
+                            inves.investigate(room.object2nr, currentraum)
                             y == 1
                             input("Weiter?")
                     if room.object3 != False:
                         if room.object3.lower().replace(" ", "") == x:
-                            inves.investigate(room.object3nr)
+                            inves.investigate(room.object3nr, currentraum)
                             y == 1
                             input("Weiter?")
                     if x == "zurück":
@@ -310,6 +309,8 @@ def game_play():
         else:
             print("Bitte nochmal")
     
+
+    #<<<Ende Der Loop>>>
     if spiel_gewonnen == True:
         print("Glückwunsch ihr habt gesiegt")
     elif char.hp <= 0:

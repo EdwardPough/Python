@@ -7,18 +7,18 @@ char = DruemmerCharacterClass
 cha = DruemmerCharacterClass.character()
 
 #<<<Funktionen>>>
-def damagecalc(y): #x = Equipped Item aus Inventory | y = Klassenwahl aus Combat (Variable = y)
-    #---------Determining Character Class---------
-    char_kl = DruemmerCharacterClass.character()
-    classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
-        if not target.startswith("_")]
-    currentclass = classmethods[y]
-    getattr(char_kl, currentclass)()
-    #---------Damage Calculation---------
+# def damagecalc(y): #x = Equipped Item aus Inventory | y = Klassenwahl aus Combat (Variable = y)
+#     #---------Determining Character Class---------
+#     char_kl = DruemmerCharacterClass.character()
+#     classmethods = [target for target, method in inspect.getmembers(char.character, predicate=inspect.isfunction)     
+#         if not target.startswith("_")]
+#     currentclass = classmethods[y]
+#     getattr(char_kl, currentclass)()
+#     #---------Damage Calculation---------
 
 
-def defensecalc():
-    pass
+# def defensecalc():
+#     pass
 
 #<<<---------Everything regarding Items and Equipments--------->>>
 #<<<Equipments>>>
@@ -27,6 +27,8 @@ class equipments():
         self.name = ""
         self.slot = 0 #Main = 0 | Side = 1 | Armor = 2 |
         self.base = 0
+        self.hit = 0 #From 0 - 100
+        self.crit = 0 #From 0 - 100
         self.strw = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
         self.strscl = 0
         self.dexw = ""
@@ -43,6 +45,8 @@ class equipments():
         self.name = "Mace"
         self.slot = 0 #Main
         self.base = 5
+        self.hit = 90
+        self.crit = 5
         self.strw = "A"
         self.strscl = 14
         self.dexw = "C"
@@ -60,6 +64,8 @@ class equipments():
         self.name = "Shortsword"
         self.slot = 0 #Main
         self.base = 5
+        self.hit = 90
+        self.crit = 10
         self.strw = "B"
         self.strscl = 8
         self.dexw = "C"
@@ -77,6 +83,8 @@ class equipments():
         self.name = "MagicWand"
         self.slot = 0 #Main
         self.base = 2
+        self.hit = 90
+        self.crit = 0
         self.strw = "E"
         self.strscl = 2
         self.dexw = "E"
@@ -94,6 +102,8 @@ class equipments():
         self.name = "HolySymbol"
         self.slot = 0 #Main
         self.base = 2
+        self.hit = 90
+        self.crit = 0
         self.strw = "E"
         self.strscl = 2
         self.dexw = "E"
@@ -111,6 +121,8 @@ class equipments():
         self.name = "Dagger"
         self.slot = 1 #Side
         self.base = 2
+        self.hit = 90
+        self.crit = 10
         self.strw = "B"
         self.strscl = 8
         self.dexw = "C"
