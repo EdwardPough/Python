@@ -271,17 +271,14 @@ def game_play():
                         if room.object1.lower().replace(" ", "") == x:
                             inves.investigate(room.object1nr, currentraum)
                             y == 1
-                            input("Weiter?")
                     if room.object2 != False:
                         if room.object2.lower().replace(" ", "") == x:
                             inves.investigate(room.object2nr, currentraum)
                             y == 1
-                            input("Weiter?")
                     if room.object3 != False:
                         if room.object3.lower().replace(" ", "") == x:
                             inves.investigate(room.object3nr, currentraum)
                             y == 1
-                            input("Weiter?")
                     if x == "zurück":
                         break
                 else:

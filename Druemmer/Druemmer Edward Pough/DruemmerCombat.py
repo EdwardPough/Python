@@ -250,7 +250,16 @@ class enemies():
 class abilities():
     def __init__(self):
         self.name = ""
+        self.hpcost = 0
         self.mpcost = 0
+        self.basedmg = 0
+        self.baseheal = 0
+        self.hitchance = 0
+        self.critchance = 0
+        self.strscl = 0
+        self.dexscl = 0
+        self.arcscl = 0
+        self.faiscl = 0
 
         
 #Testing

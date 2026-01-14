@@ -80,7 +80,7 @@ class equipments():
         self.type = "weap"
 
     def cmagicwand(self):          #Starter Weapon Wizard | Nummer 2
-        self.name = "MagicWand"
+        self.name = "Magicwand"
         self.slot = 0 #Main
         self.base = 2
         self.hit = 90
@@ -99,7 +99,7 @@ class equipments():
         self.type = "weap"
 
     def dholysymbol(self):          #Starter Weapon Cleric | Nummer 3
-        self.name = "HolySymbol"
+        self.name = "Holysymbol"
         self.slot = 0 #Main
         self.base = 2
         self.hit = 90
@@ -131,25 +131,25 @@ class equipments():
         self.arcscl = 0
         self.faiw = "-"
         self.faiscl = 0
-        self.ability1 = "Lunge"
+        self.ability1 = ""
         self.ability2 = ""
         self.ability3 = ""
         self.type = "weap"
 
     def fhalfplate(self):          #Starter Armor Knight | Nummer 1
-        self.name = "Halfplatearmor"
+        self.name = "Halfplate"
         self.slot = 2 #Armor
         self.basedef = 7
         self.type = "arm"
 
     def gchainmail(self):          #Starter Armor Warrior | Nummer 1
-        self.name = "chainmail"
+        self.name = "Chainmail"
         self.slot = 2 #Armor
         self.basedef = 5
         self.type = "arm"
 
     def hleatherarmor(self):          #Starter Armor Wizard/Cleric | Nummer 1
-        self.name = "leatherarmor"
+        self.name = "Leatherarmor"
         self.slot = 2 #Armor
         self.basedef = 3
         self.type = "arm"
@@ -222,7 +222,7 @@ def info(x): # X = fake equipment
         print(f"Dexterity: {equ.dexw}")
         print(f"Arcane: {equ.arcw}")
         print(f"Faith: {equ.faiw}")
-        print(f"Abilities: {equ.ability1},{equ.ability2},{equ.ability3}")
+        print(f"Abilities: {equ.ability1}, {equ.ability2}, {equ.ability3}")
     else:
         print(f"Name: {equ.name}")
         print(f"Defense: {equ.basedef}")
