@@ -42,9 +42,16 @@ def investigate(z,x): # z = Investigation Target | x = Currentraum
                     invested = str(inves.subtarget1)+str(x)
                     if (invested in investigated) == False:
                         itemfind = random.randint(1,100)
-                        print("Test")
                         investigated.append(invested)
-                        input()
+                        if itemfind <= inves.st1chance:
+                            loot = random.randint(0, len(equipmethods))
+                            getattr(equip, equipmethods[loot])()
+                            DruemmerItemsEquipments.inventory.append(equip.name)
+                            print(f"You found {equip.name}!")
+                            input()
+                        else:
+                            print("You found nothing.")
+                            input()
                     else:
                         print("Das hast du bereits untersucht")
                         input()
@@ -53,9 +60,16 @@ def investigate(z,x): # z = Investigation Target | x = Currentraum
                     invested = str(inves.subtarget2)+str(x)
                     if (invested in investigated) == False:
                         itemfind = random.randint(1,100)
-                        print("Test")
                         investigated.append(invested)
-                        input()
+                        if itemfind <= inves.st2chance:
+                            loot = random.randint(0, len(equipmethods))
+                            getattr(equip, equipmethods[loot])()
+                            DruemmerItemsEquipments.inventory.append(equip.name)
+                            print(f"You found {equip.name}!")
+                            input()
+                        else:
+                            print("You found nothing.")
+                            input()
                     else:
                         print("Das hast du bereits untersucht")
                         input()
@@ -64,15 +78,25 @@ def investigate(z,x): # z = Investigation Target | x = Currentraum
                     invested = str(inves.subtarget3)+str(x)
                     if (invested in investigated) == False:
                         itemfind = random.randint(1,100)
-                        print("Test")
                         investigated.append(invested)
-                        input()
+                        if itemfind <= inves.st3chance:
+                            loot = random.randint(0, len(equipmethods))
+                            getattr(equip, equipmethods[loot])()
+                            DruemmerItemsEquipments.inventory.append(equip.name)
+                            print(f"You found {equip.name}!")
+                            input()
+                        else:
+                            print("You found nothing.")
+                            input()
                     else:
                         print("Das hast du bereits untersucht")
                         input()
             if ent == "zurück":
                 break
-
+        else:
+            print("Es gibt nichts von Interesse")
+            input()
+            break
 
 
 #Druemmer Investigation Objects
@@ -106,9 +130,9 @@ class investigation():
         self.target = "Verkümmertes Skelett"
         self.tdescription = "Ein verkümmertes Skelett!"
         self.tinteractable = False
-        self.subtarget1 = None
-        self.subtarget1desc = None
-        self.st1chance = 0
+        self.subtarget1 = "Hand"
+        self.subtarget1desc = "Es hält etwas in der von Spinnweben verdeckten Hand."
+        self.st1chance = 30
         self.subtarget2 = None
         self.subtarget2desc = None
         self.st2chance = 0

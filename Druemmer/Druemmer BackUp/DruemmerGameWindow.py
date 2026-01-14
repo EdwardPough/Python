@@ -50,9 +50,9 @@ class window():
         self.interactable = True
         self.object1 = "Bedeckter Tisch" #Nummer 2
         self.object1nr = 2
-        self.object2 = None
+        self.object2 = False
         self.object2nr = False
-        self.object3 = None
+        self.object3 = False
         self.object3nr = False
 
     def testraum3(self):                #Combat
@@ -68,11 +68,11 @@ class window():
         self.enemyrange_a = 0
         self.enemyrange_z = 0
         self.interactable = False
-        self.object1 = None
+        self.object1 = False
         self.object1nr = False
-        self.object2 = None
+        self.object2 = False
         self.object2nr = False
-        self.object3 = None
+        self.object3 = False
         self.object3nr = False
 
     def testraum4(self):                   #Combat and Interactable
@@ -95,5 +95,5 @@ class window():
         self.object1nr = 0
         self.object2 = "Verkümmertes Skelett" #Nummer 1
         self.object2nr = 1
-        self.object1 = "Bedeckter Tisch" #Nummer 2
-        self.object1nr = 2
+        self.object3 = "Bedeckter Tisch" #Nummer 2
+        self.object3nr = 2
