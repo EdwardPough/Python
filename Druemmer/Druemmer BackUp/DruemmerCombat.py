@@ -3,6 +3,7 @@
 import random
 import DruemmerItemsEquipments
 import DruemmerCharacterClass
+import DruemmerAbilities
 import DruemmerGameWindow
 import inspect
 import os #os.system("cls" if os.name == "nt" else "clear")
@@ -10,6 +11,7 @@ import os #os.system("cls" if os.name == "nt" else "clear")
 #Variablen
 equips = DruemmerItemsEquipments.equipments
 char = DruemmerCharacterClass
+abi = DruemmerAbilities
 
 #<<<Combat Function>>>
     #Klassen Krieger = 0 | Ritter = 1 | Magier = 2 | Kleriker = 3
@@ -60,12 +62,11 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
             hp = char_kl.MaxHP
         hitchance = random.randint(1,100) #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
         critchance = random.randint(1,100)
-        if hitchance <= weap.hit:
-            dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
-            dmgside = round(side.base + (side.base*(((char_kl.Str * side.strscl)/3)/100)) + (side.base*(((char_kl.Dex * side.dexscl)/3)/100)) + (side.base*(((char_kl.Arc * side.arcscl)/3)/100)) + (side.base*(((char_kl.Fai * side.faiscl)/3)/100)),2)
-            dmg = round(dmgmain + dmgside/2,2)
-            if critchance <= weap.crit:
-                dmg *= 2
+        dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
+        dmgside = round(side.base + (side.base*(((char_kl.Str * side.strscl)/3)/100)) + (side.base*(((char_kl.Dex * side.dexscl)/3)/100)) + (side.base*(((char_kl.Arc * side.arcscl)/3)/100)) + (side.base*(((char_kl.Fai * side.faiscl)/3)/100)),2)
+        dmg = round(dmgmain + dmgside/2,2)
+        if critchance <= weap.crit:
+            dmg *= 2
         print(enemy.name)
         print(f"{round(enemy.hp,2)}|{enemy.maxhp}")
         edec = random.randint(1,3)
@@ -168,7 +169,25 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                 #<<< Player Using Ability>>>
                 #Player = Ability 3 + Enemy = Attack 5 = 8
                 case 8:
-                    pass
+                    y = 1
+                    while y == 1:
+                        desc = input(f"Which Ability: ({weap.ability1}|{weap.ability2}|{weap.ability3}) ").lower().replace(" ","")
+                        match desc:
+                            case "overheadsmash" if desc == weap.ability1.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ",""):
+                                hitti = weap.hit
+                                critti = weap.crit
+                                hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = abi.overheadsmash(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit)#hp|mp|dmg|str|dex|arc|fai|hit|crit
+                                if hitchance <= weap.hit:
+                                    enemy.hp -= dmg
+                                weap.hit = hitti
+                                weap.crit = critti
+                                hp =- enemy.damage
+                                print(f"You attacked and dealt {dmg} damage!")
+                                print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                input()
+                                y = 0 #Irgendwas funzt net so wie es soll außerdem muss die dmg calc dringend über arbeitet werden
+                            case _:
+                                print("Funzt net") 
                 #Player = Ability 3 + Enemy = Defend 10 = 13
                 case 13:
                     pass
@@ -245,21 +264,6 @@ class enemies():
         self.dodgechance = 0 #Chance zum Ausweichen
         self.hitchance = 85 #Chance mit einer Attacke zu Treffen
         self.critchance = 0 #Chance auf einen kritischen Treffer
-
-#<<<Abilities Class>>>
-class abilities():
-    def __init__(self):
-        self.name = ""
-        self.hpcost = 0
-        self.mpcost = 0
-        self.basedmg = 0
-        self.baseheal = 0
-        self.hitchance = 0
-        self.critchance = 0
-        self.strscl = 0
-        self.dexscl = 0
-        self.arcscl = 0
-        self.faiscl = 0
 
         
 #Testing

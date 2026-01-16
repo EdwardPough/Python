@@ -56,7 +56,7 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Overhead Smash"
-        self.ability2 = "Upper Cut"
+        self.ability2 = "Uppercut"
         self.ability3 = ""
         self.type = "weap"
 
@@ -94,8 +94,8 @@ class equipments():
         self.faiw = "-"
         self.faiscl = 0
         self.ability1 = "Missile"
-        self.ability2 = "Dagger"
-        self.ability3 = "ManaRegen"
+        self.ability2 = "Ice Knife"
+        self.ability3 = "Mana Regen"
         self.type = "weap"
 
     def dholysymbol(self):          #Starter Weapon Cleric | Nummer 3
@@ -113,8 +113,8 @@ class equipments():
         self.faiw = "B"
         self.faiscl = 8
         self.ability1 = "Heal"
-        self.ability2 = "Lightflash"
-        self.ability3 = "LowerManaRegen"
+        self.ability2 = "Light Flash"
+        self.ability3 = "Lower Mana Regen"
         self.type = "weap"
 
     def edagger(self):          #Starter Weapon Everyone
