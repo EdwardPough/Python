@@ -145,9 +145,9 @@ def game_start():
                     y = 2
                     inv.append("Dagger")
                     inv.append("Holysymbol")
-                    inv.append("Leatherarmor")
+                    inv.append("Chainmail")
                     DruemmerItemsEquipments.equip_real("holysymbol")
-                    DruemmerItemsEquipments.equip_real("leatherarmor")
+                    DruemmerItemsEquipments.equip_real("chainmail")
                     DruemmerItemsEquipments.equip_real("dagger")
                     break
                 elif sicher == "nein":
