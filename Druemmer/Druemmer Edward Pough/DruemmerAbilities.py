@@ -1,5 +1,6 @@
 #<<<Imports>>>
 import random
+import inspect
 
 #<<<Liste an Fähigkeiten>>>
 #From Mace: Overhead Smash(D), Uppercut(D)
@@ -21,6 +22,42 @@ import random
 #         self.dexscl = 0
 #         self.arcscl = 0
 #         self.faiscl = 0
+
+#<<<Abilities Class>>>
+class abilities():
+    def __init__(self):
+        self.name = ""
+        self.hpcost = 0
+        self.mpcost = 0
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = 0
+        self.critchance = 0
+        self.strscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.dexscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.arcscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.faiscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.function = None #Function of said Ability
+
+    def overheadsmash(self, hp, mp, dmg, str, dex, arc, fai, hit, crit):
+        self.name = "" #For Display in Combat only
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = 3 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + -10 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + 50 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.dexscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.arcscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        self.faiscl = "" #Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2%
+        #self.function = overheadsmash(hp, dmg, str, dex, arc, fai, hit, crit, self.strscl, self.dexscl, self.arcscl, self.faiscl,) #Function of said Ability
+
+
+
+
+
+
 
 #<<<MACE>>>
 def overheadsmash(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
@@ -199,7 +236,7 @@ def lowermanaregen(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost 
     mp = mp - mpcost
     return hp, mp, dmg, str, dex, arc, fai, hit, crit
 
-#<<<Testing>>>
+#-------------TESTING FOR CALCULATION FUNCTIONS---------------
 hp = 20
 mp = 30
 dmg = 4.59
@@ -212,4 +249,13 @@ crit = 5
 print(hp, mp, dmg, str, dex, arc, fai, hit, crit)
 hp, mp, dmg, str, dex, arc, fai, hit, crit = lightflash(hp, mp, dmg, str, dex, arc, fai, hit, crit)
 print(hp, mp, dmg, str, dex, arc, fai, hit, crit)
-    
+
+#-------------TESTING FOR REWORK---------------
+#abili = abilities[1]
+abi = abilities()
+abimethods = [target for target, method in inspect.getmembers(abilities, predicate=inspect.isfunction)     
+    if not target.startswith("_")]
+#abiindex = abimethods.index(abili)
+currentabi = abimethods[0]
+getattr(abi, currentabi)(hp, mp, dmg, str, dex, arc, fai, hit, crit)
+print(abi.hitchance)
