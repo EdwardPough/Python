@@ -55,7 +55,6 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
     getattr(enemy, currentenemy)()
     #---------Combat---------
     while (enemy.hp > 0 and hp > 0) == True:
-        os.system("cls" if os.name == "nt" else "clear")
         if enemy.hp > enemy.maxhp:
             enemy.hp = enemy.maxhp
         if hp > char_kl.MaxHP:
@@ -67,146 +66,348 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
         dmg = round(dmgmain + dmgside/2,2)
         if critchance <= weap.crit:
             dmg *= 2
-        print(enemy.name)
-        print(f"{round(enemy.hp,2)}|{enemy.maxhp}")
-        edec = random.randint(1,3)
-        if edec == 1: #Attacking
-            print(f"The {enemy.name} intends on attacking!")
-        elif edec == 2: #Defending
-            print(f"The {enemy.name} intends on blocking!")
-        elif edec == 3: #Dodging and Countering
-            print(f"The {enemy.name} is awaiting an attack!")
-        print("------------------")
-        print(char_kl.name)
-        print(f"HP: {hp}|{char_kl.MaxHP}")
-        print(f"Mana: {char_kl.Mana}|{char_kl.MaxMana}")
         ent1 = 0
         while ent1 == 0:
+            os.system("cls" if os.name == "nt" else "clear")
+            print(enemy.name)
+            print(f"{round(enemy.hp,2)}|{enemy.maxhp}")
+            edec = random.randint(1,3)
+            if edec == 1: #Attacking
+                print(f"The {enemy.name} intends on attacking!")
+            elif edec == 2: #Defending
+                print(f"The {enemy.name} intends on blocking!")
+            elif edec == 3: #Dodging and Countering
+                print(f"The {enemy.name} is awaiting an attack!")
+            print("------------------")
+            print(char_kl.name)
+            print(f"HP: {hp}|{char_kl.MaxHP}")
+            print(f"Mana: {mp}|{char_kl.MaxMana}")
             print("What will you do?")
             print("1)Attack | 2)Defend | 3)Ability | 4)Item(Not Implemented)")
+            pent = 0
             pdec = input().lower().replace(" ","")
             if pdec == "attack":
                 pent = 1
-                ent1 = 1
             elif pdec == "defend":
                 pent = 2
-                ent1 = 1
             elif pdec == "ability":
                 pent = 3
-                ent1 = 1
             else:
                 print("Try again")
-            situation = pent + 5*(edec)
-            match situation:
-                #<<< Player Attacking>>>
-                #Player = Attack 1 + Enemy = Attack 5 = 6
-                case 6:
-                    hp -= enemy.damage
-                    if hitchance <= weap.hit:
-                        enemy.hp -= dmg
-                        if critchance <= weap.crit:
-                            print("You critically hit the enemy!")
-                        print(f"You attacked and dealt {dmg} damage!")
-                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
-                        input()
-                    else:
-                        print("You missed!")
-                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
-                        input()
-                #Player = Attack 1 + Enemy = Defend 10 = 11
-                case 11:
-                    if hitchance <= weap.hit:
-                        enemy.hp -= dmg - enemy.defense
-                        if critchance <= weap.crit:
-                            print("You critically hit the enemy!")
-                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
-                        input()
-                    else:
-                        print("You missed!")
-                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
-                        input()
-                #Player = Attack 1 + Enemy = Counter 15 = 16
-                case 16:
-                    if hitchance <= weap.hit:
-                        chance = random.randint(1,100)
-                        dodge = enemy.dodgechance * 2
-                        if dodge >= chance:
+            if pent != 0:
+                descloop = True
+                while descloop:
+                    situation = pent + 5*(edec)
+                    match situation:
+                        #<<< Player Attacking>>>
+                        #Player = Attack 1 + Enemy = Attack 5 = 6
+                        case 6:
                             hp -= enemy.damage
-                            print(f"The {enemy.name} dodged your attack and retaliates!")
-                            print(f"You take {enemy.damage} damage!")
-                            input()
-                        else:
-                            enemy.hp -= dmg
-                            if critchance <= weap.crit:
-                                print("You critically hit the enemy!")
-                            print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
-                            input()
-                    else:
-                        print("You missed!")
-                        hp -= enemy.damage
-                        print(f"The {enemy.name} dodged your attack and retaliates!")
-                        print(f"You take {enemy.damage} damage!")
-                        input()
-                #<<< Player Defending>>>
-                #Player = Defend 2 + Enemy = Attack 5 = 7
-                case 7:
-                    dmgenm = enemy.damage - arm.basedef
-                    if dmgenm < 0:
-                        dmgenm = 0
-                    hp -= dmgenm
-                    print(f"You blocked the attack of the {enemy.name} and only took {dmgenm} damage!")
-                    input()
-                #Player = Defend 2 + Enemy = Defend 10 = 12
-                case 12:
-                    print(f"The {enemy.name} blocked and so did you!")
-                    print("Nothing happens...")
-                    input()
-                #Player = Defend 2 + Enemy = Counter 15 = 17
-                case 17:
-                    print(f"You saw through the trick of {enemy.name}!")
-                    print("You narrowly avoid its counterattack!")
-                    input()
-                #<<< Player Using Ability>>>
-                #Player = Ability 3 + Enemy = Attack 5 = 8
-                case 8:
-                    y = 1
-                    while y == 1:
-                        desc = input(f"Which Ability: ({weap.ability1}|{weap.ability2}|{weap.ability3}) ").lower().replace(" ","")
-                        match desc:
-                            case "overheadsmash" if desc == weap.ability1.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ",""):
-                                hitti = weap.hit
-                                critti = weap.crit
-                                hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = abi.overheadsmash(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit)#hp|mp|dmg|str|dex|arc|fai|hit|crit
-                                if hitchance <= weap.hit:
-                                    enemy.hp -= dmg
-                                weap.hit = hitti
-                                weap.crit = critti
-                                hp =- enemy.damage
+                            if hitchance <= weap.hit:
+                                enemy.hp -= dmg
+                                if critchance <= weap.crit:
+                                    print("You critically hit the enemy!")
                                 print(f"You attacked and dealt {dmg} damage!")
                                 print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                                 input()
-                                y = 0 #Irgendwas funzt net so wie es soll außerdem muss die dmg calc dringend über arbeitet werden
-                            case _:
-                                print("Funzt net") 
-                #Player = Ability 3 + Enemy = Defend 10 = 13
-                case 13:
-                    pass
-                #Player = Ability 3 + Enemy = Counter 15 = 18
-                case 18:
-                    pass
+                                descloop = False
+                                ent1 = 1
+                            else:
+                                print("You missed!")
+                                print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                input()
+                                descloop = False
+                                ent1 = 1
+                        #Player = Attack 1 + Enemy = Defend 10 = 11
+                        case 11:
+                            if hitchance <= weap.hit:
+                                enemy.hp -= dmg - enemy.defense
+                                if critchance <= weap.crit:
+                                    print("You critically hit the enemy!")
+                                print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                input()
+                                descloop = False
+                                ent1 = 1
+                            else:
+                                print("You missed!")
+                                print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                input()
+                                descloop = False
+                                ent1 = 1
+                        #Player = Attack 1 + Enemy = Counter 15 = 16
+                        case 16:
+                            if hitchance <= weap.hit:
+                                chance = random.randint(1,100)
+                                dodge = enemy.dodgechance * 2
+                                if dodge >= chance:
+                                    hp -= enemy.damage
+                                    print(f"The {enemy.name} dodged your attack and retaliates!")
+                                    print(f"You take {enemy.damage} damage!")
+                                    input()
+                                    descloop = False
+                                    ent1 = 1
+                                else:
+                                    enemy.hp -= dmg
+                                    if critchance <= weap.crit:
+                                        print("You critically hit the enemy!")
+                                    print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
+                                    input()
+                                    descloop = False
+                                    ent1 = 1
+                            else:
+                                print("You missed!")
+                                hp -= enemy.damage
+                                print(f"The {enemy.name} dodged your attack and retaliates!")
+                                print(f"You take {enemy.damage} damage!")
+                                input()
+                                descloop = False
+                                ent1 = 1
+                        #<<< Player Defending>>>
+                        #Player = Defend 2 + Enemy = Attack 5 = 7
+                        case 7:
+                            dmgenm = enemy.damage - arm.basedef
+                            if dmgenm < 0:
+                                dmgenm = 0
+                            hp -= dmgenm
+                            print(f"You blocked the attack of the {enemy.name} and only took {dmgenm} damage!")
+                            input()
+                            descloop = False
+                            ent1 = 1
+                        #Player = Defend 2 + Enemy = Defend 10 = 12
+                        case 12:
+                            print(f"The {enemy.name} blocked and so did you!")
+                            print("Nothing happens...")
+                            input()
+                            descloop = False
+                            ent1 = 1
+                        #Player = Defend 2 + Enemy = Counter 15 = 17
+                        case 17:
+                            print(f"You saw through the trick of {enemy.name}!")
+                            print("You narrowly avoid its counterattack!")
+                            input()
+                            descloop = False
+                            ent1 = 1
+                        #<<< Player Using Ability>>>
+                        #Player = Ability 3 + Enemy = Attack 5 = 8
+                        case 8:
+                            y = 1
+                            while y == 1:
+                                hitti = weap.hit
+                                critti = weap.crit
+                                os.system("cls" if os.name == "nt" else "clear")
+                                desc = input(f"Which Ability: ({weap.ability1}|{weap.ability2}|{weap.ability3} or Back?) ").lower().replace(" ","")
+                                if desc == weap.ability1.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ","") or desc == weap.ability3.lower().replace(" ",""):    
+                                    run = False
+                                    abi = DruemmerAbilities.abilities()
+                                    abimethods = [target for target, method in inspect.getmembers(DruemmerAbilities.abilities, predicate=inspect.isfunction)     
+                                        if not target.startswith("_")]
+                                    abiindex = abimethods.index(desc)
+                                    currentabi = abimethods[abiindex]
+                                    getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                    loop = True
+                                    while loop == True:
+                                        print(dmg)
+                                        print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
+                                        print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
+                                        print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
+                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
+                                        if desc == "ja":
+                                            if abi.mpcost <= mp:
+                                                run = True
+                                                hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                                hp -= enemy.damage
+                                                if hitchance <= weap.hit:
+                                                    enemy.hp -= dmg
+                                                    if critchance <= weap.crit:
+                                                        print("You critically hit the enemy!")
+                                                    print(f"You attacked and dealt {dmg} damage!")
+                                                    print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                else:
+                                                    print("You missed!")
+                                                    print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                weap.hit = hitti
+                                                weap.crit = critti
+                                                y = 0
+                                                loop = False
+                                            else:
+                                                print("Du hast nicht genügend Mana")
+                                                loop = False
+                                                input()
+                                        elif desc == "nein":
+                                            loop = False
+                                        elif desc == "zurück":
+                                            y = 0
+                                            loop = False
+                                        else:
+                                            print("Try again")
+                                            input()
+                                elif desc == "back":
+                                    y = 0
+                                    descloop = False
+                                else:
+                                    print("Try again")
+                                    input()
+                        #Player = Ability 3 + Enemy = Defend 10 = 13
+                        case 13:
+                            y = 1
+                            while y == 1:
+                                hitti = weap.hit
+                                critti = weap.crit
+                                os.system("cls" if os.name == "nt" else "clear")
+                                desc = input(f"Which Ability: ({weap.ability1}|{weap.ability2}|{weap.ability3} or Back?) ").lower().replace(" ","")
+                                if desc == weap.ability1.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ","") or desc == weap.ability3.lower().replace(" ",""):    
+                                    run = False
+                                    abi = DruemmerAbilities.abilities()
+                                    abimethods = [target for target, method in inspect.getmembers(DruemmerAbilities.abilities, predicate=inspect.isfunction)     
+                                        if not target.startswith("_")]
+                                    abiindex = abimethods.index(desc)
+                                    currentabi = abimethods[abiindex]
+                                    getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                    loop = True
+                                    while loop == True:
+                                        print(dmg)
+                                        print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
+                                        print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
+                                        print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
+                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
+                                        if desc == "ja":
+                                            if abi.mpcost <= mp:
+                                                run = True
+                                                hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                                hp -= enemy.damage
+                                                if hitchance <= weap.hit:
+                                                    enemy.hp -= dmg - enemy.defense
+                                                    if critchance <= weap.crit:
+                                                        print("You critically hit the enemy!")
+                                                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                else:
+                                                    print("You missed!")
+                                                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                weap.hit = hitti
+                                                weap.crit = critti
+                                                y = 0
+                                                loop = False
+                                            else:
+                                                print("Du hast nicht genügend Mana")
+                                                loop = False
+                                                input()
+                                        elif desc == "nein":
+                                            loop = False
+                                        elif desc == "zurück":
+                                            y = 0
+                                            loop = False
+                                        else:
+                                            print("Try again")
+                                            input()
+                                elif desc == "back":
+                                    y = 0
+                                    descloop = False
+                                else:
+                                    print("Try again")
+                                    input()
+                        #Player = Ability 3 + Enemy = Counter 15 = 18
+                        case 18:
+                            y = 1
+                            while y == 1:
+                                hitti = weap.hit
+                                critti = weap.crit
+                                os.system("cls" if os.name == "nt" else "clear")
+                                desc = input(f"Which Ability: ({weap.ability1}|{weap.ability2}|{weap.ability3} or Back?) ").lower().replace(" ","")
+                                if desc == weap.ability1.lower().replace(" ","") or desc == weap.ability2.lower().replace(" ","") or desc == weap.ability3.lower().replace(" ",""):    
+                                    run = False
+                                    abi = DruemmerAbilities.abilities()
+                                    abimethods = [target for target, method in inspect.getmembers(DruemmerAbilities.abilities, predicate=inspect.isfunction)     
+                                        if not target.startswith("_")]
+                                    abiindex = abimethods.index(desc)
+                                    currentabi = abimethods[abiindex]
+                                    getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                    loop = True
+                                    while loop == True:
+                                        print(dmg)
+                                        print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
+                                        print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
+                                        print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
+                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
+                                        if desc == "ja":
+                                            if abi.mpcost <= mp:
+                                                run = True
+                                                hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
+                                                hp -= enemy.damage
+                                                if hitchance <= weap.hit:
+                                                    chance = random.randint(1,100)
+                                                    dodge = enemy.dodgechance * 2
+                                                    if dodge >= chance:
+                                                        hp -= enemy.damage
+                                                        print(f"The {enemy.name} dodged your attack and retaliates!")
+                                                        print(f"You take {enemy.damage} damage!")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
+                                                    else:
+                                                        enemy.hp -= dmg
+                                                        if critchance <= weap.crit:
+                                                            print("You critically hit the enemy!")
+                                                        print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
+                                                else:
+                                                    print("You missed!")
+                                                    hp -= enemy.damage
+                                                    print(f"The {enemy.name} dodged your attack and retaliates!")
+                                                    print(f"You take {enemy.damage} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                weap.hit = hitti
+                                                weap.crit = critti
+                                                y = 0
+                                                loop = False
+                                            else:
+                                                print("Du hast nicht genügend Mana")
+                                                input()
+                                                loop = False
+                                        elif desc == "nein":
+                                            loop = False
+                                        elif desc == "zurück":
+                                            y = 0
+                                            loop = False
+                                        else:
+                                            print("Try again")
+                                            input()
+                                elif desc == "back":
+                                    y = 0
+                                    descloop = False
+                                else:
+                                    print("Try again")
+                                    input()
+                        case _:
+                            print("What happened?")
 
-        if enemy.hp < 0:
-            enemy.hp = 0
-        if hp < 0:
-            hp = 0
-        if enemy.hp == 0:
-            print("Ihr habt gesiegt!")
-            input()
-            return hp, mp
-        elif hp == 0:
-            return hp, mp
-        else:
-            pass
+            if enemy.hp < 0:
+                enemy.hp = 0
+            if hp < 0:
+                hp = 0
+            if enemy.hp == 0:
+                print("Ihr habt gesiegt!")
+                input()
+                return hp, mp
+            elif hp == 0:
+                return hp, mp
+            else:
+                pass
 
 #<<<Enemy Ranges>>>
 #0-4 Spiders | Spiderling - ???
