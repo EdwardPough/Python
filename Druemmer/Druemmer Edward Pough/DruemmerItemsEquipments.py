@@ -158,6 +158,7 @@ class equipments():
 class items():
     def __init__(self):
         self.name = ""
+        
 
 
 
@@ -165,6 +166,7 @@ class items():
 equipped = []
 realequipped = []
 inventory = []
+itemsinv = []
 
 def equip_real(x): # X = fake equipment
     equ = equipments()

@@ -59,6 +59,8 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
             enemy.hp = enemy.maxhp
         if hp > char_kl.MaxHP:
             hp = char_kl.MaxHP
+        if mp > char_kl.MaxMana:
+            mp = char_kl.MaxMana
         hitchance = random.randint(1,100) #damage calc = weap.base + (weap.base*(((char.str * weap.strscl)/3)/100)) + (weap.base*(((char.dex * weap.dexscl)/3)/100)) + (weap.base*(((char.arc * weap.arcscl)/3)/100)) + (weap.base*(((char.fai * weap.faiscl)/3)/100))
         critchance = random.randint(1,100)
         dmgmain = round(weap.base + (weap.base*(((char_kl.Str * weap.strscl)/3)/100)) + (weap.base*(((char_kl.Dex * weap.dexscl)/3)/100)) + (weap.base*(((char_kl.Arc * weap.arcscl)/3)/100)) + (weap.base*(((char_kl.Fai * weap.faiscl)/3)/100)),2)
@@ -206,7 +208,7 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                     getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
                                     loop = True
                                     while loop == True:
-                                        print(dmg)
+                                        print(f"Effect: {abi.effect}")
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
@@ -214,23 +216,38 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         if desc == "ja":
                                             if abi.mpcost <= mp:
                                                 run = True
+                                                hpcheck = hp
+                                                mpcheck = mp
                                                 hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
                                                 hp -= enemy.damage
-                                                if hitchance <= weap.hit:
-                                                    enemy.hp -= dmg
-                                                    if critchance <= weap.crit:
-                                                        print("You critically hit the enemy!")
-                                                    print(f"You attacked and dealt {dmg} damage!")
+                                                if hp > hpcheck:
+                                                    print(f"You regenerated {hp-hpcheck} Health!")
+                                                    print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                elif mp > mpcheck:
+                                                    print(f"You regenerated {mp-mpcheck} Mana!")
                                                     print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
                                                     input()
                                                     descloop = False
                                                     ent1 = 1
                                                 else:
-                                                    print("You missed!")
-                                                    print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
-                                                    input()
-                                                    descloop = False
-                                                    ent1 = 1
+                                                    if hitchance <= weap.hit:
+                                                        enemy.hp -= dmg
+                                                        if critchance <= weap.crit:
+                                                            print("You critically hit the enemy!")
+                                                        print(f"You attacked and dealt {dmg} damage!")
+                                                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
+                                                    else:
+                                                        print("You missed!")
+                                                        print(f"The {enemy.name} attacked and dealt {enemy.damage} damage!")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
                                                 weap.hit = hitti
                                                 weap.crit = critti
                                                 y = 0
@@ -271,7 +288,7 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                     getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
                                     loop = True
                                     while loop == True:
-                                        print(dmg)
+                                        print(f"Effect: {abi.effect}")
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
@@ -279,22 +296,37 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         if desc == "ja":
                                             if abi.mpcost <= mp:
                                                 run = True
+                                                hpcheck = hp
+                                                mpcheck = mp
                                                 hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
-                                                hp -= enemy.damage
-                                                if hitchance <= weap.hit:
-                                                    enemy.hp -= dmg - enemy.defense
-                                                    if critchance <= weap.crit:
-                                                        print("You critically hit the enemy!")
-                                                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                                if hp > hpcheck:
+                                                    print(f"You regenerated {hp-hpcheck} Health!")
+                                                    print(f"The {enemy.name} blocked nothing!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                elif mp > mpcheck:
+                                                    print(f"You regenerated {mp-mpcheck} Mana!")
+                                                    print(f"The {enemy.name} blocked nothing!")
                                                     input()
                                                     descloop = False
                                                     ent1 = 1
                                                 else:
-                                                    print("You missed!")
-                                                    print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
-                                                    input()
-                                                    descloop = False
-                                                    ent1 = 1
+                                                    if hitchance <= weap.hit:
+                                                        enemy.hp -= dmg
+                                                        if critchance <= weap.crit:
+                                                            print("You critically hit the enemy!")
+                                                        print(f"You attacked and dealt {dmg} damage!")
+                                                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
+                                                    else:
+                                                        print("You missed!")
+                                                        print(f"The {enemy.name} blocked and you only dealt {round(dmg-enemy.defense,2)} damage!")
+                                                        input()
+                                                        descloop = False
+                                                        ent1 = 1
                                                 weap.hit = hitti
                                                 weap.crit = critti
                                                 y = 0
@@ -335,7 +367,7 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                     getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
                                     loop = True
                                     while loop == True:
-                                        print(dmg)
+                                        print(f"Effect: {abi.effect}")
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
@@ -343,34 +375,40 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         if desc == "ja":
                                             if abi.mpcost <= mp:
                                                 run = True
+                                                hpcheck = hp
+                                                mpcheck = mp
                                                 hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit = getattr(abi, currentabi)(hp, mp, dmg, char_kl.Str, char_kl.Dex, char_kl.Arc, char_kl.Fai, weap.hit, weap.crit, run)
-                                                hp -= enemy.damage
-                                                if hitchance <= weap.hit:
-                                                    chance = random.randint(1,100)
-                                                    dodge = enemy.dodgechance * 2
-                                                    if dodge >= chance:
-                                                        hp -= enemy.damage
-                                                        print(f"The {enemy.name} dodged your attack and retaliates!")
-                                                        print(f"You take {enemy.damage} damage!")
-                                                        input()
-                                                        descloop = False
-                                                        ent1 = 1
-                                                    else:
-                                                        enemy.hp -= dmg
-                                                        if critchance <= weap.crit:
-                                                            print("You critically hit the enemy!")
-                                                        print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
-                                                        input()
-                                                        descloop = False
-                                                        ent1 = 1
-                                                else:
-                                                    print("You missed!")
-                                                    hp -= enemy.damage
-                                                    print(f"The {enemy.name} dodged your attack and retaliates!")
-                                                    print(f"You take {enemy.damage} damage!")
+                                                if hp > hpcheck:
+                                                    print(f"You regenerated {hp-hpcheck} Health!")
+                                                    print("You narrowly avoid its counterattack!")
                                                     input()
                                                     descloop = False
                                                     ent1 = 1
+                                                elif mp > mpcheck:
+                                                    print(f"You regenerated {mp-mpcheck} Mana!")
+                                                    print("You narrowly avoid its counterattack!")
+                                                    input()
+                                                    descloop = False
+                                                    ent1 = 1
+                                                else:
+                                                    if hitchance <= weap.hit:
+                                                        chance = random.randint(1,100)
+                                                        dodge = enemy.dodgechance * 2
+                                                        if dodge >= chance:
+                                                            hp -= enemy.damage
+                                                            print(f"The {enemy.name} dodged your attack and retaliates!")
+                                                            print(f"You take {enemy.damage} damage!")
+                                                            input()
+                                                            descloop = False
+                                                            ent1 = 1
+                                                        else:
+                                                            enemy.hp -= dmg
+                                                            if critchance <= weap.crit:
+                                                                print("You critically hit the enemy!")
+                                                            print(f"The {enemy.name} is unable to dodge and you hit it for {dmg} damage")
+                                                            input()
+                                                            descloop = False
+                                                            ent1 = 1
                                                 weap.hit = hitti
                                                 weap.crit = critti
                                                 y = 0
@@ -432,8 +470,8 @@ class enemies():
 
     def aspiderling(self):
         self.name = "Spiderling"
-        self.hp = 13 #Hit Points des Monsters
-        self.maxhp = 13 #Max Hit Points des Monsters
+        self.hp = 26 #Hit Points des Monsters
+        self.maxhp = 26 #Max Hit Points des Monsters
         self.mana = 3 #Mana des Monsters
         self.maxmana = 3 #Max Mana des Monsters
         self.damage = 5 #Schaden den das Monster verursacht
@@ -444,25 +482,25 @@ class enemies():
 
     def btwoheadedspider(self):
         self.name = "Twoheaded Spider"
-        self.hp = 15 #Hit Points des Monsters
-        self.maxhp = 15 #Max Hit Points des Monsters
+        self.hp = 38 #Hit Points des Monsters
+        self.maxhp = 38 #Max Hit Points des Monsters
         self.mana = 3 #Mana des Monsters
         self.maxmana = 3 #Max Mana des Monsters
         self.damage = 7 #Schaden den das Monster verursacht
         self.defense = 5 #Rüstungswert des Monster der den Schaden reduziert
-        self.dodgechance = 10 #Chance zum Ausweichen
+        self.dodgechance = 15 #Chance zum Ausweichen
         self.hitchance = 90 #Chance mit einer Attacke zu Treffen
         self.critchance = 20 #Chance auf einen kritischen Treffer
 
     def cbroodmother(self):
         self.name = "Broodmother"
-        self.hp = 46 #Hit Points des Monsters
-        self.maxhp = 46 #Max Hit Points des Monsters
+        self.hp = 92 #Hit Points des Monsters
+        self.maxhp = 92 #Max Hit Points des Monsters
         self.mana = 3 #Mana des Monsters
         self.maxmana = 3 #Max Mana des Monsters
         self.damage = 2 #Schaden den das Monster verursacht
         self.defense = 0 #Rüstungswert des Monster der den Schaden reduziert
-        self.dodgechance = 0 #Chance zum Ausweichen
+        self.dodgechance = 5 #Chance zum Ausweichen
         self.hitchance = 85 #Chance mit einer Attacke zu Treffen
         self.critchance = 0 #Chance auf einen kritischen Treffer
 
