@@ -23,6 +23,14 @@ import inspect
 #         self.arcscl = 0
 #         self.faiscl = 0
 
+
+
+
+
+
+
+
+
 #<<<Abilities Class>>>
 class abilities():
     def __init__(self):
@@ -42,6 +50,7 @@ class abilities():
 #---------------MACE---------------
     def overheadsmash(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
         self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
         self.hpcost = 0 #For Display in Combat only | Custom Value
         self.mpcost = 3 #For Display in Combat only | Custom Value
         self.finaldmg = 0
@@ -60,6 +69,7 @@ class abilities():
 
     def uppercut(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
         self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
         self.hpcost = 0 #For Display in Combat only | Custom Value
         self.mpcost = 3 #For Display in Combat only | Custom Value
         self.finaldmg = 0
@@ -67,7 +77,7 @@ class abilities():
         self.hitchance = hit + -10 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
         self.critchance = crit + 0 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
         self.strscl = 14 # A | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
-        self.dexscl = 14 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 14 # A | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
         self.arcscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
         self.faiscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
         if run == True:
@@ -77,8 +87,154 @@ class abilities():
             return hp, mp, dmg, str, dex, arc, fai, hit, crit
 
 #---------------SHORTSWORD---------------
+    def lunge(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = 2 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + 20 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + 0 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 8 # B | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 8 # B | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = lunge(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
 
-#<<<MACE>>>
+#---------------MAGICWAND---------------
+    def missile(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = 6 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + 100 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 8 # B | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = missile(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+        
+    def iceknife(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = 10 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + -10 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 14 # A | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = iceknife(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+        
+    def manaregen(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Mana Regeneration"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = -6 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + -100 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 14 # A | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = manaregen(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+
+#---------------MAGICWAND---------------
+    def heal(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Health Regeneration"
+        self.hpcost = -8 #For Display in Combat only | Custom Value
+        self.mpcost = 8 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + -100 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 14 # A | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = heal(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+        
+    def lightflash(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Damaging Ability"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = 4 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + 100 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 8 # B | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = lightflash(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+        
+    def lowermanaregen(self, hp, mp, dmg, str, dex, arc, fai, hit, crit, run):
+        self.name = "" #For Display in Combat only
+        self.effect = "Mana Regeneration"
+        self.hpcost = 0 #For Display in Combat only | Custom Value
+        self.mpcost = -3 #For Display in Combat only | Custom Value
+        self.finaldmg = 0
+        self.finalheal = 0
+        self.hitchance = hit + -100 #For Display in Combat only | Weaponhitchance + Custom Value (if over a hundred print guaranteed)
+        self.critchance = crit + -100 #For Display in Combat only | Weaponcritchance + Custom Value (if over a hundred print guaranteed)
+        self.strscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.dexscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.arcscl = 0 # - | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        self.faiscl = 8 # B | Scaling A = 14% | B = 8% | C = 6% | D = 4% | E = 2% | - = 0%
+        if run == True:
+            self.function = dmg, str, dex, arc, fai, hit, crit = lowermanaregen(dmg, str, dex, arc, fai, self.hitchance, self.critchance, self.strscl, self.dexscl, self.arcscl, self.faiscl) #Function of said Ability
+            hp = hp - self.hpcost
+            mp = mp - self.mpcost
+            return hp, mp, dmg, str, dex, arc, fai, hit, crit
+
+
+
+
+
+
+
+
+
+
+
+
+#<<<CALLED FUNCTIONS>>>
+#----------------<<<MACE>>>----------------
 def overheadsmash(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
     basedmg = 4
     baseheal = 0
@@ -88,6 +244,40 @@ def overheadsmash(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, fa
     return dmg, str, dex, arc, fai, hit, crit
 
 def uppercut(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 2
+    baseheal = 0
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
+    if random.randint(1,100) <= crit:
+        dmg *= 2
+    return dmg, str, dex, arc, fai, hit, crit
+
+#----------------<<<SHORTSWORD>>>----------------
+def lunge(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 1
+    baseheal = 0
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
+    if random.randint(1,100) <= crit:
+        dmg *= 2
+    return dmg, str, dex, arc, fai, hit, crit
+
+#----------------<<<MAGICWAND>>>----------------
+def missile(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 8
+    baseheal = 0
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
+    if random.randint(1,100) <= crit:
+        dmg *= 2
+    return dmg, str, dex, arc, fai, hit, crit
+
+def iceknife(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 15
+    baseheal = 0
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
+    if random.randint(1,100) <= crit:
+        dmg *= 2
+    return dmg, str, dex, arc, fai, hit, crit
+
+def manaregen(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
     basedmg = 0
     baseheal = 0
     dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
@@ -95,141 +285,30 @@ def uppercut(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl)
         dmg *= 2
     return dmg, str, dex, arc, fai, hit, crit
 
-
-
-#<<<SHORTSWORD>>>
-def lunge(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = 2
-    basedmg = 3
+#----------------<<<HOLYSYMBOL>>>----------------
+def heal(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 0
     baseheal = 0
-    hitchance = 20
-    critchance = 0
-    strscl = 8 #B
-    dexscl = 8 #B
-    arcscl = 0 #-
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    dmg = round((dmg + basedmg) * (((strscl * str) / 100) + ((dexscl * dex) / 100) + ((arcscl * arc) / 100) + ((faiscl * fai) / 100)),2)
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
     if random.randint(1,100) <= crit:
         dmg *= 2
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
+    return dmg, str, dex, arc, fai, hit, crit
 
-#<<<MAGICWAND>>>
-def missile(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = 6
-    basedmg = 5
+def lightflash(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 6
     baseheal = 0
-    hitchance = 100
-    critchance = -100
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 8 #B
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    dmg = round((dmg + basedmg) * (((strscl * str) / 100) + ((dexscl * dex) / 100) + ((arcscl * arc) / 100) + ((faiscl * fai) / 100)),2)
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
     if random.randint(1,100) <= crit:
         dmg *= 2
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
+    return dmg, str, dex, arc, fai, hit, crit
 
-def iceknife(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = 10
-    basedmg = 5
+def lowermanaregen(dmg, str, dex, arc, fai, hit, crit, strscl, dexscl, arcscl, faiscl): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
+    basedmg = 0
     baseheal = 0
-    hitchance = -10
-    critchance = -100
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 14 #A
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    dmg = round((dmg + basedmg) * (((strscl * str) / 100) + ((dexscl * dex) / 100) + ((arcscl * arc) / 100) + ((faiscl * fai) / 100)),2)
+    dmg = round((dmg + basedmg) * (1 + (((strscl * (str / 100)/10)) + ((dexscl * (dex / 100)/10)) + ((arcscl * (arc / 100)/10)) + ((faiscl * (fai / 100)/10)))),2)
     if random.randint(1,100) <= crit:
         dmg *= 2
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
-
-def manaregen(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = -6
-    basedmg = 5
-    baseheal = 0
-    hitchance = 0
-    critchance = 0
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 14 #A
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
-
-#<<<Heal>>>
-def heal(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = -8
-    mpcost = 8
-    basedmg = 5
-    baseheal = 0
-    hitchance = 0
-    critchance = 0
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 14 #A
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
-
-def lightflash(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = 4
-    basedmg = 5
-    baseheal = 0
-    hitchance = 0
-    critchance = -100
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 0 #-
-    faiscl = 8 #B
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    dmg = round((dmg + basedmg) * (((strscl * str) / 100) + ((dexscl * dex) / 100) + ((arcscl * arc) / 100) + ((faiscl * fai) / 100)),2)
-    if random.randint(1,100) <= crit:
-        dmg *= 2
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
-
-def lowermanaregen(hp, mp, dmg, str, dex, arc, fai, hit, crit): #hp for hp cost or healing | mp for mana cost or regen | dmg for dmg calc | str,dex,arc,fai stats for scaling
-    hpcost = 0
-    mpcost = -3
-    basedmg = 5
-    baseheal = 0
-    hitchance = 0
-    critchance = 0
-    strscl = 0 #-
-    dexscl = 0 #-
-    arcscl = 14 #A
-    faiscl = 0 #-
-    hit = hit + hitchance
-    crit = crit + critchance
-    hp = hp - hpcost
-    mp = mp - mpcost
-    return hp, mp, dmg, str, dex, arc, fai, hit, crit
+    return dmg, str, dex, arc, fai, hit, crit
 
 #Variables
 run = False

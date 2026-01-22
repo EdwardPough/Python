@@ -18,6 +18,7 @@ combat = DruemmerCombat
 inv = DruemmerItemsEquipments.inventory
 equip = DruemmerItemsEquipments.equipped
 realequ = DruemmerItemsEquipments.realequipped
+it = DruemmerItemsEquipments.itemsinv
 completedrooms = []
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
@@ -228,7 +229,8 @@ def game_play():
             while True:
                 os.system("cls" if os.name == "nt" else "clear")
                 print(f"Equipped: {equip}")
-                print(f"Inventory: {inv}")
+                print(f"Equipments: {inv}")
+                print(f"Items: {it}")
                 x = input("Equip/Info/Use/Zurück: ").lower().replace(" ","")
                 if x == "equip":
                     x = input("Was wollen Sie ausrüsten? ").lower().replace(" ","")
