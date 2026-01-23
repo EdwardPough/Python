@@ -19,6 +19,8 @@ inv = DruemmerItemsEquipments.inventory
 equip = DruemmerItemsEquipments.equipped
 realequ = DruemmerItemsEquipments.realequipped
 it = DruemmerItemsEquipments.itemsinv
+ite = DruemmerItemsEquipments
+show = DruemmerItemsEquipments.showitem
 completedrooms = []
 
 #Clear Terminal Function >>> os.system("cls" if os.name == "nt" else "clear") <<<
@@ -28,19 +30,21 @@ completedrooms = []
 def game_start():
     global kl
     y = 1
+    ite.appendingitems("Healthpotion")
+    ite.appendingitems("Healthpotion")
     for i in range(3):
         DruemmerItemsEquipments.equipped.append("-")
         DruemmerItemsEquipments.realequipped.append("-")
     while y == 1:
         os.system("cls" if os.name == "nt" else "clear")
-        print("Willkommen bei der Testversion von Druemmer")
-        print("Welche Klasse wollen sie spielen?")
-        klasse = str(input("(Krieger/Ritter/Magier/Kleriker) ")).lower()
+        print("Welcome to the Testverion of Druemmer")
+        print("Which Class do yo choose?")
+        klasse = str(input("(Warrior/Knight/Wizard/Cleric) ")).lower()
         #---------Krieger---------
-        if klasse == "krieger":
-            print("Sie spielen einen Krieger!")
+        if klasse == "warrior":
+            print("You chose Warrior!")
             char.aclasswarrior()
-            print("Das wären ihre Stats:")
+            print("Warrior Stats:")
             print("HP:", char.hp)
             print("Mana:", char.Mana)
             print("Strength:", char.Str)
@@ -50,9 +54,9 @@ def game_start():
             x = 1
             kl = 0
             while x == 1:
-                sicher = str(input("Sind Sie sich sicher? ")).lower()
-                if sicher == "ja":
-                    print("Viel Spaß!")
+                sicher = str(input("Are you sure? ")).lower()
+                if sicher == "yes":
+                    print("Good luck!")
                     y = 2
                     inv.append("Dagger")
                     inv.append("Mace")
@@ -61,16 +65,16 @@ def game_start():
                     DruemmerItemsEquipments.equip_real("chainmail")
                     DruemmerItemsEquipments.equip_real("dagger")
                     break
-                elif sicher == "nein":
-                    print("Bitte wählen Sie eine neue Klasse!")
+                elif sicher == "no":
+                    print("Please choose a new class!")
                     x = 2
                 else:
-                    print("Bitte versuchen sie es nochmal!")
+                    print("Try again!")
         #---------Ritter---------
-        elif klasse == "ritter":
-            print("Sie spielen einen Ritter!")
+        elif klasse == "knight":
+            print("You chose Knight!")
             char.bclassknight()
-            print("Das wären ihre Stats:")
+            print("Knight Stats:")
             print("HP:", char.hp)
             print("Mana:", char.Mana)
             print("Strength:", char.Str)
@@ -80,9 +84,9 @@ def game_start():
             x = 1
             kl = 1
             while x == 1:
-                sicher = str(input("Sind Sie sich sicher? ")).lower()
-                if sicher == "ja":
-                    print("Viel Spaß!")
+                sicher = str(input("Are you sure? ")).lower()
+                if sicher == "yes":
+                    print("Good luck!")
                     y = 2
                     inv.append("Dagger")
                     inv.append("Shortsword")
@@ -91,16 +95,16 @@ def game_start():
                     DruemmerItemsEquipments.equip_real("halfplate")
                     DruemmerItemsEquipments.equip_real("dagger")
                     break
-                elif sicher == "nein":
-                    print("Bitte wählen Sie eine neue Klasse!")
+                elif sicher == "no":
+                    print("Please choose a new class!")
                     x = 2
                 else:
-                    print("Bitte versuchen sie es nochmal!")
+                    print("Try again!")
         #---------Magier---------
-        elif klasse == "magier":
-            print("Sie spielen einen Magier!")
+        elif klasse == "wizard":
+            print("You chose Wizard!")
             char.cclasswizard()
-            print("Das wären ihre Stats:")
+            print("Wizard Stats:")
             print("HP:", char.hp)
             print("Mana:", char.Mana)
             print("Strength:", char.Str)
@@ -110,9 +114,9 @@ def game_start():
             x = 1
             kl = 2
             while x == 1:
-                sicher = str(input("Sind Sie sich sicher? ")).lower()
-                if sicher == "ja":
-                    print("Viel Spaß!")
+                sicher = str(input("Are you sure? ")).lower()
+                if sicher == "yes":
+                    print("Good luck!")
                     y = 2
                     inv.append("Dagger")
                     inv.append("Magicwand")
@@ -121,16 +125,16 @@ def game_start():
                     DruemmerItemsEquipments.equip_real("leatherarmor")
                     DruemmerItemsEquipments.equip_real("dagger")
                     break
-                elif sicher == "nein":
-                    print("Bitte wählen Sie eine neue Klasse!")
+                elif sicher == "no":
+                    print("Please choose a new class!")
                     x = 2
                 else:
-                    print("Bitte versuchen sie es nochmal!")
+                    print("Try again!")
         #---------Kleriker---------
-        elif klasse == "kleriker":
-            print("Sie spielen einen Kleriker!")
+        elif klasse == "cleric":
+            print("You chose Cleric!")
             char.dclasscleric()
-            print("Das wären ihre Stats:")
+            print("Cleric Stats:")
             print("HP:", char.hp)
             print("Mana:", char.Mana)
             print("Strength:", char.Str)
@@ -140,9 +144,9 @@ def game_start():
             x = 1
             kl = 3
             while x == 1:
-                sicher = str(input("Sind Sie sich sicher? ")).lower()
-                if sicher == "ja":
-                    print("Viel Spaß!")
+                sicher = str(input("Are you sure? ")).lower()
+                if sicher == "yes":
+                    print("Good luck!")
                     y = 2
                     inv.append("Dagger")
                     inv.append("Holysymbol")
@@ -150,14 +154,15 @@ def game_start():
                     DruemmerItemsEquipments.equip_real("holysymbol")
                     DruemmerItemsEquipments.equip_real("chainmail")
                     DruemmerItemsEquipments.equip_real("dagger")
+                    input()
                     break
-                elif sicher == "nein":
-                    print("Bitte wählen Sie eine neue Klasse!")
+                elif sicher == "no":
+                    print("Please choose a new class!")
                     x = 2
                 else:
-                    print("Bitte versuchen sie es nochmal!")
+                    print("Try again!")
         else:
-            print("Bitte versuchen sie es nochmal!")
+            print("Try again!")
 
 #-----------------------------------------------Spielkörper--------------------------------------------------
 
@@ -197,7 +202,7 @@ def game_play():
         
         #<<<Printing Everything>>>
         print("---------------------------")
-        print("Klasse:", char.name)
+        print("Class:", char.name)
         print("HP:", char.hp, "/", char.MaxHP)
         print("Mana:", char.Mana, "/", char.MaxMana)
         print("---------------------------")
@@ -221,7 +226,7 @@ def game_play():
         
         #<<<Decisions that can be made>>>
         
-        decision = str(input("Was machen Sie? ")).lower()
+        decision = str(input("What do you do? ")).lower()
         
         #<<<Inventory>>>
 
@@ -230,27 +235,37 @@ def game_play():
                 os.system("cls" if os.name == "nt" else "clear")
                 print(f"Equipped: {equip}")
                 print(f"Equipments: {inv}")
-                print(f"Items: {it}")
-                x = input("Equip/Info/Use/Zurück: ").lower().replace(" ","")
+                print(f"Items:")
+                ite.showitem()
+                x = input("Equip/Info/Use/Back: ").lower().replace(" ","")
                 if x == "equip":
-                    x = input("Was wollen Sie ausrüsten? ").lower().replace(" ","")
+                    x = input("What do you want to equip? ").lower().replace(" ","")
                     if x.capitalize() in inv:
                         DruemmerItemsEquipments.equip_real(x)
-                        print("jo ging")
+                        print("You equipped it!")
                         input()
                     else:
-                        print("jo ging net")
+                        print("Didn't work.")
                         input()
                 elif x == "info":
-                    x = input("Von was wollen Sie die Informationen? ").lower().replace(" ","")
+                    x = input("From what equipment do you want the stats? ").lower().replace(" ","")
                     if x.capitalize() in inv:
                         os.system("cls" if os.name == "nt" else "clear")
                         DruemmerItemsEquipments.info(x)
                         input()
                     else:
-                        print("jo ging net")
+                        print("Didn't work.")
                         input()
-                elif x == "zurück":
+                elif x == "use": #WORK IN PROGRESS
+                    x = input("Which Item do you want to use? ").lower().replace(" ","")
+                    if x.capitalize() in inv:
+                        os.system("cls" if os.name == "nt" else "clear")
+                        DruemmerItemsEquipments.info(x)
+                        input()
+                    else:
+                        print("Please choose from the items.")
+                        input()
+                elif x == "back":
                     break
 
         
@@ -267,8 +282,8 @@ def game_play():
                         print(room.object2)
                     if room.object3 != False:
                         print(room.object3)
-                    print("Zurück?")
-                    x = str(input("Was wollen sie untersuchen? ")).lower().replace(" ", "")
+                    print("Back?")
+                    x = str(input("What do you want to investigate? ")).lower().replace(" ", "")
                     if room.object1 != False:
                         if room.object1.lower().replace(" ", "") == x:
                             inves.investigate(room.object1nr, currentraum)
@@ -281,11 +296,11 @@ def game_play():
                         if room.object3.lower().replace(" ", "") == x:
                             inves.investigate(room.object3nr, currentraum)
                             y == 1
-                    if x == "zurück":
+                    if x == "back":
                         break
                 else:
-                    print("Der Raum ist leer!")
-                    input("Weiter? ")
+                    print("The room is empty!")
+                    input("Continue? ")
                     break
                         
             
@@ -306,16 +321,16 @@ def game_play():
         elif decision == "ende": #TESTING <<>> DELETE LATER / TESTING <<>> DELETE LATER / TESTING <<>> DELETE LATER / 
             spiel_gewonnen = True
         else:
-            print("Bitte nochmal")
+            print("Try again!")
     
 
     #<<<Ende Der Loop>>>
     if spiel_gewonnen == True:
-        print("Glückwunsch ihr habt gesiegt")
+        print("Congrats you won!")
     elif char.hp <= 0:
-        print("Ihr seid gestorben")
+        print("You died!")
     else:
-        print("Was ist geschehen?")
+        print("What did you do?")
 
 #------------------------------------------------------------------------------------------------------------
 game_start()

@@ -16,7 +16,7 @@ class character:
         self.Fai = None #Max = 32
 
     def aclasswarrior(self): #76 Points
-        self.name = "Krieger"
+        self.name = "Warrior"
         self.hp = 19
         self.MaxHP = 19
         self.Mana = 5
@@ -27,7 +27,7 @@ class character:
         self.Fai = 9
 
     def bclassknight(self): #76 Points
-        self.name = "Ritter"
+        self.name = "Knight"
         self.hp = 26
         self.MaxHP = 26
         self.Mana = 5
@@ -38,7 +38,7 @@ class character:
         self.Fai = 12
 
     def cclasswizard(self): #76 Points
-        self.name = "Magier"
+        self.name = "Wizard"
         self.hp = 10
         self.MaxHP = 10
         self.Mana = 22
@@ -49,7 +49,7 @@ class character:
         self.Fai = 10
 
     def dclasscleric(self): #76 Points
-        self.name = "Kleriker"
+        self.name = "Cleric"
         self.hp = 14
         self.MaxHP = 14
         self.Mana = 17
