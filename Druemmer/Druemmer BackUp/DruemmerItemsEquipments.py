@@ -153,20 +153,36 @@ class equipments():
         self.slot = 2 #Armor
         self.basedef = 3
         self.type = "arm"
-        
+
+#<<<---------Everything regarding Items--------->>>
 #<<<Items>>>
 class items():
     def __init__(self):
-        self.name = ""
+        self.name = ""      #the name of the item
+        self.desc = ""      #description of the item
+        self.moneycost = 0  #cost at merchants
+        self.manacost = 0   #if it cost or regens mana
+        self.hpcost = 0     #if it heals or damages the user
+        self.dmg = 0        #if it deals dmg or maybe heals enemies
+        self.count = 0      #the amount of said items
         
 
+def appendingitems(x):
+    itemscount.append(x.lower().replace(" ",""))
+    if (x in itemsinv) != True:
+        itemsinv.append(x)
 
+def showitem():
+    for i in range(len(itemsinv)):
+        a = itemsinv[i]
+        print(f"{itemscount.count(a.lower().replace(" ",""))} {a},")
 
 #<<<---------Everything regarding Inventory--------->>>
 equipped = []
 realequipped = []
 inventory = []
 itemsinv = []
+itemscount = []
 
 def equip_real(x): # X = fake equipment
     equ = equipments()

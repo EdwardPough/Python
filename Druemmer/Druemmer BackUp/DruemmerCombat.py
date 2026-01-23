@@ -88,11 +88,11 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
             print("1)Attack | 2)Defend | 3)Ability | 4)Item(Not Implemented)")
             pent = 0
             pdec = input().lower().replace(" ","")
-            if pdec == "attack":
+            if pdec == "attack" or pdec == "1":
                 pent = 1
-            elif pdec == "defend":
+            elif pdec == "defend" or pdec == "2":
                 pent = 2
-            elif pdec == "ability":
+            elif pdec == "ability" or pdec == "3":
                 pent = 3
             else:
                 print("Try again")
@@ -212,8 +212,8 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
-                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
-                                        if desc == "ja":
+                                        desc = input("1)Yes | 2)No | 3)Back: ").lower().replace(" ","")
+                                        if desc == "yes" or desc == "1":
                                             if abi.mpcost <= mp:
                                                 run = True
                                                 hpcheck = hp
@@ -253,12 +253,12 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                                 y = 0
                                                 loop = False
                                             else:
-                                                print("Du hast nicht genügend Mana")
+                                                print("You don't have enough mana!")
                                                 loop = False
                                                 input()
-                                        elif desc == "nein":
+                                        elif desc == "no" or desc == "2":
                                             loop = False
-                                        elif desc == "zurück":
+                                        elif desc == "back"  or desc == "3":
                                             y = 0
                                             loop = False
                                         else:
@@ -292,8 +292,8 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
-                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
-                                        if desc == "ja":
+                                        desc = input("1)Yes | 2)No | 3)Back: ").lower().replace(" ","")
+                                        if desc == "yes" or desc == "1":
                                             if abi.mpcost <= mp:
                                                 run = True
                                                 hpcheck = hp
@@ -332,12 +332,12 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                                 y = 0
                                                 loop = False
                                             else:
-                                                print("Du hast nicht genügend Mana")
+                                                print("You don't have enough mana!")
                                                 loop = False
                                                 input()
-                                        elif desc == "nein":
+                                        elif desc == "no" or desc == "2":
                                             loop = False
-                                        elif desc == "zurück":
+                                        elif desc == "back" or desc == "3":
                                             y = 0
                                             loop = False
                                         else:
@@ -371,8 +371,8 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                         print(f"Costs: HP = {abi.hpcost} | MP = {abi.mpcost}")
                                         print(f"Scaling: STR = {abi.strscl}% | DEX = {abi.dexscl}%")
                                         print(f"         ARC = {abi.arcscl}% | FAI = {abi.faiscl}%")
-                                        desc = input("Ja/Nein/Zurück: ").lower().replace(" ","")
-                                        if desc == "ja":
+                                        desc = input("1)Yes | 2)No | 3)Back: ").lower().replace(" ","")
+                                        if desc == "yes" or desc == "1":
                                             if abi.mpcost <= mp:
                                                 run = True
                                                 hpcheck = hp
@@ -414,12 +414,12 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
                                                 y = 0
                                                 loop = False
                                             else:
-                                                print("Du hast nicht genügend Mana")
+                                                print("You don't have enough mana!")
                                                 input()
                                                 loop = False
-                                        elif desc == "nein":
+                                        elif desc == "no" or desc == "2":
                                             loop = False
-                                        elif desc == "zurück":
+                                        elif desc == "back" or desc == "3":
                                             y = 0
                                             loop = False
                                         else:
@@ -439,7 +439,7 @@ def combat(a,b,y,hp,mp): #<<< a = enemyrange_a | b = enemyrange_z | w = Raum | x
             if hp < 0:
                 hp = 0
             if enemy.hp == 0:
-                print("Ihr habt gesiegt!")
+                print("You won!")
                 input()
                 return hp, mp
             elif hp == 0:
